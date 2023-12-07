@@ -86,7 +86,7 @@ Next, I wanted to get a better idea of what the company sold, the type of produc
 
 To do this I ran a query that returned the **total number of products, product lines, and warehouses**.
 
-![Query1-Code.png](attachment:60ed1b4e-82d9-4c60-a43d-fc8db9bc139e.png)
+![Query1-Code](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/f4f57f50-7778-4081-a2d9-889c8a8d7169)
 
 Here are the results:
 
