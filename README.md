@@ -117,15 +117,30 @@ Obviously, I couldn't stop there! The next query drills down on these numbers ev
 
 In this case, the company is looking to reduce inventory and maybe even close a warehouse. So this query looks at the **number of products at each warehouse**, number of **different product lines** at that warehouse, **total products in stock at each warehouse**, and how full each warehouse is.
 
-![Warehouse-Query.png](attachment:f014bada-4e1b-45ff-9c68-c2b3170d758b.png)
+```SQL
+SELECT
+    w.warehouseName AS WarehouseName,                        -- Selects the name of the warehouse
+    COUNT(DISTINCT p.productCode) AS UniqueProducts,         -- Counts the unique products in each warehouse
+    COUNT(DISTINCT p.productLine) AS UniqueProductLines,     -- Counts the unique product lines in each warehouse
+    SUM(p.quantityInStock) AS TotalQuantityInStock,          -- Sums up the total quantity in stock at each warehouse
+    w.warehousePctCap AS WarehouseCapacity                   -- Includes the warehouse percentage capacity
+FROM
+    warehouses w                                            -- Alias 'w' for the warehouses table
+LEFT JOIN
+    products p ON w.warehouseCode = p.warehouseCode          -- Joins products with warehouses on matching warehouseCode
+GROUP BY
+    w.warehouseName, w.warehousePctCap                      -- Groups the results by warehouseName and warehousePctCap
+ORDER BY
+	TotalQuantityInStock DESC;								-- Orders the results by TotalQuantity
+```
 
 Don't look now, we're over here joining tables and creating aliases!
 
 Here are the results:
 
-![Results-Warehouse-Query.png](attachment:ef857433-f0e8-420a-8061-1e400962ac97.png)
+![Results-Warehouse-Query](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/82054468-657c-44fb-b510-d92df6b39236)
 
-The results show warehouse 'East' has by far the most types of products (38) and the most quantity of those items in stock(219,183). Interestingly enough, it only houses one product line.
+The results show warehouse 'East' has by far the most types of products (38) and the largest quantity of those items in stock (219,183). Interestingly enough, it only houses one product line.
 
 But for now, with our baseline relatively set, we'll move on to looking at sales and the relationship that has with a product's inventory.
 
@@ -147,13 +162,28 @@ Remember, our goal here is to help this company consolidate and potentially down
 
 Starting things off for this section we'll do some exploration into the most and least popular products. To do this we'll look at total orders across all products.
 
-![Query3-Code.png](attachment:d5182db3-c79b-4e40-baa7-eb6f31973c76.png)
+```SQL
+SELECT p.productName, p.productLine, SUM(od.quantityOrdered) AS TotalQuantityOrdered -- Selecting product name, product line, and total quantity ordered
+FROM products p
+LEFT JOIN orderdetails od ON p.productCode = od.productCode -- Joining 'products' and 'orderdetails' tables on product code
+GROUP BY p.productCode, p.productName -- Grouping results by product code and product name
+ORDER BY TotalQuantityOrdered DESC -- Ordering the results by total quantity ordered in descending order
+LIMIT 10; -- Limiting the results to the top 10
+
+SELECT p.productName, p.productLine, SUM(od.quantityOrdered) AS TotalQuantityOrdered -- Selecting product name, product line, and total quantity ordered
+FROM products p
+LEFT JOIN orderdetails od ON p.productCode = od.productCode -- Joining 'products' and 'orderdetails' tables on product code
+GROUP BY p.productCode, p.productName -- Grouping results by product code and product name
+ORDER BY TotalQuantityOrdered -- Ordering the results by total quantity ordered in ascending order
+LIMIT 10; -- Limiting the results to the bottom 10
+```
 
 Here are the results:
 
-![Most-and-Least-Popular-Products.png](attachment:1e59b372-1bf3-4126-b804-30bd6c9c9f3d.png)
+![Most-and-Least-Popular-Products](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/ebf7043e-0bbd-4980-a6bf-0b0be28a3814)
 
-To make the results easier to digest, I only included the top-5 most and least popular products in the chart. The **1992 red Ferrari Spider is by far the most popular product**, almost 40% more orders than the next closest product.
+
+To make the results easier to digest, I only included the top-5 most and least popular products in the chart seen above. The **1992 red Ferrari Spider is by far the most popular product**, with almost 40% more orders than the next closest product.
 
 By contrast, the **Toyota Supra is by far the least popular product with zero orders**. Paul Walker must be turning over in his grave. 
 
