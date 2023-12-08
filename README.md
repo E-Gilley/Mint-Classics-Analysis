@@ -76,7 +76,15 @@ Let's get started by better acquainting ourselves with the data:
 
 My first step was to try to get oriented with the data at a high level. First I need to figure out **when the data is from** and how long of a period this data was collected. To do this I looked at the oldest and newest order date.
 
-![Screenshot 2023-12-01 at 11.30.25 AM.png](attachment:c36cf72d-1328-4b65-bd36-17963c55403f.png)
+```SQL
+-- Finding the oldest order date
+SELECT MIN(orderDate) AS OldestOrderDate -- Selecting the minimum order date
+FROM orders; -- From the 'orders' table
+
+-- Finding the newest order date
+SELECT MAX(orderDate) AS NewestOrderDate -- Selecting the maximum order date
+FROM orders; -- From the 'orders' table
+```
 
 The results showed that the **first order was from January 6, 2003** and the **last order was on May 3, 2005**. My first pice of advice for this company would be to get newer data!
 
@@ -86,11 +94,19 @@ Next, I wanted to get a better idea of what the company sold, the type of produc
 
 To do this I ran a query that returned the **total number of products, product lines, and warehouses**.
 
-![Query1-Code](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/f4f57f50-7778-4081-a2d9-889c8a8d7169)
+```SQL
+-- This query finds the total number of unique products, product lines, and warehouses.
+SELECT 
+    COUNT(DISTINCT productCode) AS UniqueProducts, -- Uses the COUNT function to find distinct product codes.
+    COUNT(DISTINCT productLine) AS UniqueProductLines,-- Uses the COUNT function to find distinct product lines.
+    COUNT(DISTINCT warehouseCode) AS TotalWarehouses -- Uses the COUNT function to find distinct warehouse codes.
+FROM products;
+```
 
 Here are the results:
 
-![Query1-Results.png](attachment:52372264-215a-4fa1-b8da-0cb3cf64cdc8.png)
+![Query1-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/e9b8a292-4cba-4db8-94b3-6a17c5310454)
+
 
 Ok great, analysis complete! This fake company now has all the information (based on 20-year-old data) they could ever need. And on top of that, I've demonstrated my *elite querying abilities*!
 
