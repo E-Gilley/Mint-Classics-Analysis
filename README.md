@@ -189,68 +189,96 @@ By contrast, the **Toyota Supra is by far the least popular product with zero or
 
 Vintage cars do make up three of the five most popular products though. So let's look at the most popular product lines and see if that holds true for the entire dataset.
 
-### Query 3: The Most Popular Product Lines
+### Query 3-4: The Most Popular Product Lines
 
 Next, let's look at each product line and how popular it is. This will give us a better idea of what percentage of sales each product line is responsible for.
 
 Before looking at that, let's first verify our total sum or orders for each product. This way when we'll be able to tell if any products don't have a product line attached to them.
 
-![Total-Quanity-Orders-Query.png](attachment:da52ea77-90be-4ad5-a07f-3aa8301b95bc.png)
+```SQL
+SELECT SUM(quantityOrdered) AS TotalOrders -- Selecting the total sum of quantity ordered across all products
+FROM orderdetails; -- Retrieving data from the 'orderdetails' table
+```
 
 The results showed we have 105,516 total orders. So when we break sales down across product lines, that should be our total.
 
-![Total-Quanity-Orders-Results.png](attachment:b3bc580a-1154-4ad2-ad51-2de640ea4095.png)
+![Total-Quanity-Orders-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/7e87860d-475e-4702-9123-a63e7150a85f)
 
 Cool. Cool. Cool. Great attention to detail Eric. Way to demonstrate your commitment to data accuracy! 
 
-![Most-Popular-ProductLine-Query.png](attachment:f9bca8cf-fa1b-4eb5-acc6-586aa9dc3db6.png)
-
+```SQL
+-- Query to calculate the total orders for each product line
+SELECT pl.productLine, SUM(od.quantityOrdered) AS TotalOrders -- Selecting product line and sum of quantity ordered
+FROM productlines pl -- Referencing the 'productlines' table as 'pl'
+JOIN products p ON pl.productLine = p.productLine -- Joining 'productlines' and 'products' tables on product line
+JOIN orderdetails od ON p.productCode = od.productCode -- Joining 'products' and 'orderdetails' tables on product code
+JOIN orders o ON od.orderNumber = o.orderNumber -- Joining 'orders' and 'orderdetails' tables on order number
+GROUP BY pl.productLine -- Grouping results by product line
+ORDER BY TotalOrders DESC; -- Sorting results by total orders in descending order
+```
 
 Here are the results displayed as a pie chart (because I'm not afraid to dip my toe into controversial and divisive data visualization techniques).
 
-![Most-Popular-Product-Lines.png](attachment:76b62d32-50b3-4d45-b3e2-9c51c9c21735.png)
+![Most-Popular-Product-Lines](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/4f72a01b-5203-4198-87ef-116035f25586)
 
 So looking at the full data set, the **Classic Cars product line proved to be the most popular**. It's clear the bulk of the sales belong to Classic and Vintage cars, the **two car-based lines account for over 50% of overall sales**.
 
 Sales are nice, but profit is even better. Next, we'll look at which products are the most and least profitable for Mint Classics.
 
 
-### Query 4-5: Product Profitability
+### Query 5: Product Profitability
 
-Sales only tell one-half of the story. A company's best-selling item could be generating minimal returns if it isn't that profitable. To check this out we'll look at MC's most and least profitable items in two ways.
+Sales only tell part of the story. A company's best-selling item could be generating only average returns if it isn't that profitable. To check this out we'll look at MC's most and least profitable items in two ways.
 
-We'll look at **profit per product**. How much does the company buy it for and how much do they sell it for. The results will show the expected profitability and the actual profitability per unit. We wanted to make sure the actual profit per unit reflected the amount Mint Classic actually sold the product for and not just the suggested MSRP.
+We'll look at **profit per product**. How much does the company buy it for and how much do they sell it for. The results will show the expected profitability and the actual profitability per unit. We wanted to make sure the actual profit per unit reflected the amount Mint Classic actually sold the product for and not just the suggested MSRP. However, the query also includes the *expected profit*, which shows the difference between MSRP and the price Mint Classics paid for the product.
 
 This query will also take that actual profit per product and multiply it by the total number of that product sold. This will reveal the **total profit for each product**.
 
-To view all of this information, I got a little ambitious and squeezed everything into one query then exported the data to make it easier to analyze. It also has the benefit of having a file with all the data for a later date. 
+To view all of this information, I got a little ambitious and squeezed everything into one query then exported the data to make it easier to analyze. It also has the benefit of creating a file with all the data for a later date. 
 
-![Profitability-Query.png](attachment:896d4369-dd3b-45fe-95a6-795ce85eb946.png)
+```SQL
+SELECT 
+    p.productName,
+    p.productLine,
+    FORMAT(SUM((od.quantityOrdered * p.buyPrice)), 2) AS TotalPaid, -- Total amount paid for products sold
+    FORMAT(SUM(od.quantityOrdered * od.priceEach), 2) AS TotalRevenue, -- Total revenue generated
+    FORMAT(SUM((od.quantityOrdered * od.priceEach) - (od.quantityOrdered * p.buyPrice)), 2) AS TotalProfit, -- Total profit
+    FORMAT(p.MSRP - p.buyPrice, 2) AS ExpectedProfitability, -- Expected profitability
+    FORMAT((SUM(od.quantityOrdered * od.priceEach) / SUM(od.quantityOrdered)) - p.buyPrice, 2) AS ActualProfitability, -- Actual profitability
+    FORMAT(((p.MSRP - p.buyPrice) - ((SUM(od.quantityOrdered * od.priceEach) / SUM(od.quantityOrdered)) - p.buyPrice)) / (p.MSRP - p.buyPrice) * 100, 2) AS DifferenceInProfitability -- Difference in profitability as a percentage
+FROM 
+    products p
+JOIN 
+    orderdetails od ON p.productCode = od.productCode
+GROUP BY 
+    p.productCode, p.productName
+ORDER BY 
+    TotalProfit DESC;
+```
 
 There's a lot going in that query. But we can break the results down to make them easier to digest.
 
 Top 10 products by total profit:
 
-![Total-Profit-Products-Results-Most.png](attachment:4250cd44-5e73-4103-9428-8db62b594c6f.png)
+![Total-Profit-Products-Results-Most](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/aa7c2141-0530-4826-821d-2bc57dccad1b)
 
 Bottom 10 products by total profit*:
 
-![Total-Profit-Products-Results-Least.png](attachment:a6e35164-1766-4d91-9db2-1c9c190addd0.png)
-
+![Total-Profit-Products-Results-Least](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/8d9b744e-ba90-4848-90a9-8271953c43d4)
 
 Top 10 products by actual profitability per unit:
 
-![Most-Profitable-Products-Results.png](attachment:7e259914-8cc5-4df6-8917-8ba216448e43.png)
+![Most-Profitable-Products-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/8b9b78a1-7eee-4d15-aa1c-ba614b610dbb)
 
 Bottom 10 products by acutal profitability per unit*:
 
-![Least-Profitable-Products-Results.png](attachment:85b1030b-273f-48d0-87fc-10e9013de1d6.png)
+![Least-Profitable-Products-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/ce68517f-71d2-4386-a04e-2c0a7c6643e2)
 
 *Note*: The Toyota Supra is not included because it did not have any sales.
 
 Here are the results visualized on a scatter plot. We can see a clear trend line, aside from the outlier 1992 Ferrari Spyder.
 
-![Product-Profitability.png](attachment:d93a3eec-ccbb-40da-ab74-b3ed7dded272.png)
+![Product-Profitability](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/fcdfd40d-da1e-4f4c-a67e-f4eeafe06926)
 
 This scatter plot isn't perfect, I think it could be made more useful by color-coding each plot to its product line. Still, it does illustrate the correlation between unit profit and total profitability.
 
@@ -258,7 +286,6 @@ For example, **every product but one that has a unit profit over \\$50 returns o
 
 Yet another *ground-breaking discovery* from this analysis: products that are more profitable per unit make more money for the company. Who knew??? Mint Classics might be regretting their decision to hire me as an analyst right now.
 
-Let's attempt to remedy that by digging deeper into the sales data.
 
 # Part 3: Examining Warehouse Efficiency
 
@@ -278,14 +305,46 @@ First, if products are frequently ordered together but are housed in different w
 Second, if products are frequently ordered together and already in the same warehouse, these are easy candidates for reorganization in the warehouse. I.e. moving the two products closer together to enhance picking efficiency.
 
 
-This is quite a long query, I'll first display the SELECT portion of the query then follow with the rest.
+This is quite a long query, so bear  with me.
 
-![Common-Orders-Query-Part1.png](attachment:938dc96b-e6ee-4f25-a5e0-08f5cc4a735d.png)
-![Common-Orders-Query-Part2.png](attachment:fbe9321f-2dd8-4b91-a05e-4055c9d1a188.png)
+```SQL
+-- Query to find products that are commonly ordered together --
+
+SELECT 
+    p1.productName AS Product1,            -- Selecting the name of the first product
+    w1.warehouseCode AS Warehouse1,       -- Selecting the warehouse code of the first product
+    w1.warehouseName AS Warehouse1Name,   -- Selecting the warehouse name of the first product
+    p2.productName AS Product2,            -- Selecting the name of the second product
+    w2.warehouseCode AS Warehouse2,       -- Selecting the warehouse code of the second product
+    w2.warehouseName AS Warehouse2Name,   -- Selecting the warehouse name of the second product
+    COUNT(*) AS CoOccurrenceCount,        -- Counting the co-occurrences of product pairs
+    CASE 
+        WHEN w1.warehouseCode = w2.warehouseCode THEN 'Yes'  -- Conditional check if the warehouses are the same
+        ELSE 'No'
+    END AS SameWarehouse                  -- Labeling if the warehouses are the same or different
+FROM 
+    orderdetails od1                        -- First set of order details
+JOIN 
+    orderdetails od2 ON od1.orderNumber = od2.orderNumber AND od1.productCode < od2.productCode
+    -- Joining order details to itself to find different product pairs in the same order
+JOIN 
+    products p1 ON od1.productCode = p1.productCode -- Joining product details for the first product
+JOIN 
+    products p2 ON od2.productCode = p2.productCode -- Joining product details for the second product
+JOIN 
+    warehouses w1 ON p1.warehouseCode = w1.warehouseCode -- Joining warehouse details for the first product
+JOIN 
+    warehouses w2 ON p2.warehouseCode = w2.warehouseCode -- Joining warehouse details for the second product
+GROUP BY 
+    p1.productName, w1.warehouseCode, p2.productName, w2.warehouseCode
+    -- Grouping the results by product names and warehouse codes
+ORDER BY 
+    CoOccurrenceCount DESC;                -- Ordering the results by co-occurrence count in descending order
+```
 
 Quite the doozy! Here is a sample of the results:
 
-![Results-Common-Orders-Query.png](attachment:b616597a-f9a9-4499-8263-ef6a31f01cc8.png)
+![Results-Common-Orders-Query](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/58f1aeab-f02b-4b76-9e44-27643c5c7d19)
 
 This proved to be a very interesting query as we can see some unsual common product combinations. Also of note was that the most common product combination was not at the same warehouse.
 
