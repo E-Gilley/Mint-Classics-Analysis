@@ -1,5 +1,13 @@
 # Analyzing Inventory Data for Mint Classics Company
 
+## Table of Contents
+- [Project Objectives](#project-objectives)
+- [Data Description](#data-description)
+- [Part 1: Exploring Current Inventory](#part-1-exploring-current-inventory)
+- [Part 2: Inventory and Sales](#part-2-inventory-and-sales)
+- [Part 3:Examining Warehouse Efficiency](#part-3-examining-warehouse-efficiency)
+- [Mistake Log](#mistake-log)
+
 ## Introduction
 
 The Mint Classics Company (MC), a totally made-up retailer specializing in classic model cars and vehicles, faces the challenge of optimizing its inventory across multiple storage facilities. 
@@ -346,7 +354,7 @@ Quite the doozy! Here is a sample of the results:
 
 ![Results-Common-Orders-Query](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/58f1aeab-f02b-4b76-9e44-27643c5c7d19)
 
-This proved to be a very interesting query as we can see some unsual common product combinations. Also of note was that the most common product combination was not at the same warehouse.
+This proved to be a very interesting query, as we can see some unsual common product combinations. Also of note was that the most common product combination was not at the same warehouse.
 
 These results are sure to yeild some high-specific recommendations during our analysis.
 
