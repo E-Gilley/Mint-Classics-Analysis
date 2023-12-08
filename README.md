@@ -5,7 +5,7 @@
 - [Data Description](#data-description)
 - [Part 1: Exploring Current Inventory](#part-1-exploring-current-inventory)
 - [Part 2: Inventory and Sales](#part-2-inventory-and-sales)
-- [Part 3:Examining Warehouse Efficiency](#part-3-examining-warehouse-efficiency)
+- [Part 3: Examining Warehouse Efficiency](#part-3-examining-warehouse-efficiency)
 - [Mistake Log](#mistake-log)
 
 ## Introduction
