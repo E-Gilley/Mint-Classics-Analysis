@@ -159,13 +159,18 @@ Remember, our goal here is to help this company consolidate and potentially down
 Now, we'll look further into specific details about the company itself.
 
 ```SQL
--- Query to calculate the total number of employees across all offices --
-SELECT SUM(NumberOfEmployees) AS TotalEmployees -- Selects the sum of all employees from different offices as TotalEmployees
-FROM (
-    SELECT COUNT(employeeNumber) AS NumberOfEmployees -- Counts the number of employees in each office
-    FROM employees
-    GROUP BY officeCode -- Groups the employee count by office
-) AS OfficeEmployees; -- Alias for the subquery used to count employees per office
+-- Query to view employee count across offices --
+SELECT 
+    offices.city, -- Selecting the office city
+    COUNT(employees.employeeNumber) AS NumberOfEmployees -- Counting the number of employees
+FROM 
+    offices -- Selecting from the offices table
+LEFT JOIN 
+    employees ON offices.officeCode = employees.officeCode -- Joining employees based on officeCode
+GROUP BY 
+    offices.officeCode, offices.city -- Grouping by officeCode and city
+ORDER BY 
+    NumberOfEmployees DESC; -- Ordering the results by NumberOfEmployees in descending order
 ```
 
 Results:
@@ -197,7 +202,7 @@ GROUP BY
 
 Here is a sample of the results:
 
-Insert.
+![Country-Orders-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/79c911b3-9a0f-49f6-99cd-4a00f852f6c9)
 
 So Mint Classics has sent orders to 21 different countries. The results show both the number of unique orders to each country and the total number of products included in those orders. 
 
