@@ -73,6 +73,10 @@ The project utilizes a MySQL database with the following schema:
 9. **warehouses**: Holds data about different storage facilities.
    - Primary Key: `warehouseCode`
 
+## Database Extended Entity-Relationship (ERR)
+
+![Database](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/10d15756-2c9f-4591-83c7-d31cdd7d77cc)
+
 The database itself was uploaded from a database script. The code for that is very long, and frankly not very important to this analysis. Just know I downloaded the script and imported it into MySQL Workbench to set up this whole database.
 
 Let's get started acquainting ourselves with the data:
