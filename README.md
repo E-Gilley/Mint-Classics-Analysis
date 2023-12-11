@@ -454,13 +454,24 @@ Here are the results:
 
 The **South warehouse is the most efficient**, while the **West is the least efficient**.
 
-A glance at the results shows why. The West warehouse has the second largest maximum capacity, but close to the fewest sales. I'm sure the workers at the southern warehouse would chalk that up to the laid-back work ethic of people of West Coast...
+A glance at the results shows why. The West warehouse has the second largest maximum capacity, but close to the fewest sales. I'm sure the workers at the southern warehouse would chalk that up to the laid-back work ethic of people on the West Coast...
 
-**Wrap-Up**: There are several opportunities for product organization and increasing effciency. Next, we'll start analyze everything to deliver some real results.
+**Wrap-Up**: There are several opportunities for product organization and increasing efficiency. Next, we'll start analyzing everything to deliver some real results.
 
 ---
 
-## Mistake Log
+# Analysis and Recommendations
+
+**Recommendation Summary**:
+
+- Stop selling the dang Toyota Supra
+- Try to negotiate a lower buy price for items with high sales and lower profits
+- Move items with over 20 concurrent orders to the same warehouse
+- Should you close a warehouse?!? (cliffhanger)
+
+
+
+# Mistake Log
 
 - While calculating the orders for each country, I first used the total number of unique orders for each country. This wouldn't have been wrong; however, that wouldn't have painted the most accurate picture. This method would've counted each order the same and not taken the quantity of each order into account.
 
@@ -471,6 +482,8 @@ In fact, it probably would've been interesting to see which items had the bigges
 
 - When calculating the 'Actual Profitability per unit' I needed to get the average price paid for a specific product. My original query just got the average of the column that contained the priced paid information. However, I realized this wouldn't take into account the quantity of an item that was ordered. The average had to be accurately weighted by how much of a product was ordered at a certain pice.
 
+# Queries Used
 
+If you're just here to make sure I know a thing or two about SQL and not interested in my ramblings, I'm going to just include all of the queries I wrote below in one place. I like your style.
 
 
