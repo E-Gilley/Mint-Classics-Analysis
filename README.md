@@ -363,9 +363,9 @@ Yet another *ground-breaking discovery* from this analysis: products that are mo
 **Key Takeaways**:
 
 - There are several areas for product placement optimization.
--
+- The South warehouse is small but mighty.
 
-### Query 6: Product Placement Optimization
+### Query 1: Product Placement Optimization
 
 One of the main objectives of this analysis to examine Mint Classics' warehouses and if they're being properly utilized. 
 
@@ -417,11 +417,11 @@ Quite the doozy! Here is a sample of the results:
 
 ![Results-Common-Orders-Query](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/58f1aeab-f02b-4b76-9e44-27643c5c7d19)
 
-This proved to be a very interesting query, as we can see some unsual common product combinations. Also of note was that the most common product combination was not at the same warehouse.
+This proved to be a very interesting query, as we can see some unusual common product combinations. Also of note was that the most common product combination was not at the same warehouse.
 
 These results are sure to yield some high-specific recommendations during our analysis.
 
-### Query 7: Warehouse Efficiency
+### Query 2: Warehouse Efficiency
 
 The next query uses inventory turnover rate to paint a better picture of which warehouses are being run the most efficiently.
 
@@ -448,27 +448,25 @@ Here are the results:
 
 ![Warehouse-Efficiency-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/2e1b03d3-9f3c-4df8-922e-8bfa5782af8c)
 
-The South warehouse is the most efficient, while the West is the least efficient.
+The **South warehouse is the most efficient**, while the **West is the least efficient**.
 
-A quick glance at the results shows why. The West warehouse has the second largest maximum capacity, but close to the fewest sales. 
+A glance at the results shows why. The West warehouse has the second largest maximum capacity, but close to the fewest sales. I'm sure the workers at the southern warehouse would chalk that up to the laid-back work ethic of people of West Coast...
+
+**Wrap-Up**: There are several opportunities for product organization and increasing effciency. Next, we'll start analyze everything to deliver some real results.
+
+---
 
 ## Mistake Log
 
-While calculating the orders for each country, I first used the total number of unique orders for each country. This wouldn't have been wrong; however, that wouldn't have painted the most accurate picture. This method would've counted each order the same and not taken the quantity of each order into account.
+- While calculating the orders for each country, I first used the total number of unique orders for each country. This wouldn't have been wrong; however, that wouldn't have painted the most accurate picture. This method would've counted each order the same and not taken the quantity of each order into account.
 
-
-
-
-When calculating profitabilty I initally just tried to use MSRP subtracted by the buy price for each item. This was simple enough and fairly accurate. However, after further exploring the orderdetails table I realized that the MSRP did not accurately reflect what each person paid for an item. The price people paid varied by order. This would have proven to be a mistake that dramatically impacts the result we got. 
+- When calculating profitabilty I initally just tried to use MSRP subtracted by the buy price for each item. This was simple enough and fairly accurate. However, after further exploring the orderdetails table I realized that the MSRP did not accurately reflect what each person paid for an item. The price people paid varied by order. This would have proven to be a mistake that dramatically impacts the result we got. 
 
 In fact, it probably would've been interesting to see which items had the biggest discrepency between projected MSRP and average actual price paid. This could be brought back to the supplier to potentially negociate a lower buy price for Mint Classics.
 
 
-_____
+- When calculating the 'Actual Profitability per unit' I needed to get the average price paid for a specific product. My original query just got the average of the column that contained the priced paid information. However, I realized this wouldn't take into account the quantity of an item that was ordered. The average had to be accurately weighted by how much of a product was ordered at a certain pice.
 
-When calculating the 'Actual Profitability per unit' I needed to get the average price paid for a specific product. My original query just got the average of the column that contained the priced paid information. However, I realized this wouldn't take into account the quantity of an item that was ordered. The average had to be accurately weighted by how much of a product was ordered at a certain pice.
-
-Addressing these mistakes sucked because I already did a lot of the legwork in creating the queries. Fixing the formulas for both of these issues was also really challenging.
 
 
 
