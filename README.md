@@ -175,7 +175,7 @@ ORDER BY
 
 Results:
 
-Here
+![Different-Office-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/debbef46-d669-467f-9f63-0275c3fbd550)
 
 I did independent verifications for the distinct count of total employees and offices to make sure nothing was being left out. Everything matched up, so we can clearly see seven independent offices (different from warehouses) with a total of 23 employees.
 
