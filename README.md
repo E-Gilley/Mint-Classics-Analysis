@@ -10,7 +10,7 @@
 
 ## Introduction
 
-The Mint Classics Company (MC), a totally made-up retailer specializing in classic model cars and vehicles, faces the challenge of optimizing its inventory across multiple storage facilities. 
+The Mint Classics Company (MC), a completely made-up retailer specializing in classic model cars and vehicles, faces the challenge of optimizing its inventory across multiple storage facilities. 
 
 As part of its strategic initiative to enhance operational efficiency, MC aims to explore its current inventory data and derive insights that can guide decisions around inventory reorganization or reduction.
 
@@ -18,17 +18,19 @@ This project delves into an exploratory data analysis (EDA) of the MC database, 
 
 By leveraging SQL queries on the provided database schema, this analysis seeks to identify patterns, uncover relationships between inventory and sales figures, and recommend potential actions to streamline inventory while ensuring timely service to customers.
 
-**Key takeaway:** I'm a real analyst helping a fake business solve a fake problem to demonstrate my skills to you!
+**Key Takeaway:** I'm a real analyst helping a fake business solve a fake problem to demonstrate my data analysis skills to you!
+
+---
 
 ### Project Objectives
 
-1. **Explore Current Inventory**: Investigate the composition and distribution of products across warehouses.
+1. **Explore the Data**: Demonstrate an understanding of the data we have available and better understand the Mint Classics company.
 2. **Sales Analysis**: Explore product sales. Try to identify any products with high sales and low inventory.
-3. **Identify Inventory Movement**: Determine stagnant inventory items and their impact on warehouse utilization.
-4. **Warehouse Efficiency Evaluation**: Analyze warehouse capacities and suggest potential consolidation strategies.
+3. **Warehouse Efficiency Evaluation**: Analyze warehouse capacities and suggest potential consolidation strategies.
 
-Through this exploration, the project aims to offer actionable data-driven recommendations that can assist Mint Classics in making informed decisions to optimize their inventory management practices (and maybe, just maybe close a warehouse or two).
+Through this exploration, the project aims to offer actionable data-driven recommendations that can assist Mint Classics in making informed decisions to optimize their inventory management practices. Who knows, maybe we'll even close a warehouse or two! No promises though.
 
+---
 
 # Data Description
 
@@ -71,18 +73,19 @@ The project utilizes a MySQL database with the following schema:
 9. **warehouses**: Holds data about different storage facilities.
    - Primary Key: `warehouseCode`
 
-The database itself was uploaded from a database script. The code for that is very long, and frankly not very important to this analysis. Just know I downloaded the script and imported in it in MySQL Workbench to set up this whole database.
+The database itself was uploaded from a database script. The code for that is very long, and frankly not very important to this analysis. Just know I downloaded the script and imported it into MySQL Workbench to set up this whole database.
 
-Let's get started by better acquainting ourselves with the data:
+Let's get started acquainting ourselves with the data:
 
+---
 
 ## Part 1: Exploring the Data
  
 **Key Takeaways**:
-- The data was collected over a 29 month period from 2003 to 2005. 
-- The company has four different warehouses with 110 unique products that are spread over 7 different product lines.
-- There are 7 different offices, housing 23 total employees.
-- The company has shipped to 21 different countries.
+- The data was collected over **29 months** from 2003 to 2005. 
+- The company has **4 different warehouses with 110 unique products** that are spread over **7 product lines**.
+- There are **7 different offices**, housing **23 total employees**.
+- The company has shipped to **21 different countries**.
 
 ### Query 1-2: Date and Products
 
@@ -154,10 +157,6 @@ Here are the results:
 
 The results show warehouse 'East' has by far the most types of products (38) and the largest quantity of those items in stock (219,183). Interestingly enough, it only houses one product line.
 
-But for now, with our baseline relatively set, we'll move on to looking at sales and the relationship that has with a product's inventory.
-
-Remember, our goal here is to help this company consolidate and potentially downsize its warehouse operations.
-
 ### Query 4: Employees and Offices
 
 Now, we'll look further into specific details about the company itself.
@@ -181,7 +180,7 @@ Results:
 
 ![Different-Office-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/debbef46-d669-467f-9f63-0275c3fbd550)
 
-I did independent verifications for the distinct count of total employees and offices to make sure nothing was being left out. Everything matched up, so we can clearly see 7 independent offices (different from warehouses) with a total of 23 employees.
+I did independent verifications for the distinct count of total employees and offices to make sure nothing was being left out. Everything matched up, so we can clearly see **7 independent offices** (different from warehouses) with a total of **23 employees**.
 
 ### Query 5: Orders by Country
 
@@ -208,7 +207,12 @@ Here is a sample of the results:
 
 ![Country-Orders-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/79c911b3-9a0f-49f6-99cd-4a00f852f6c9)
 
-So Mint Classics has sent orders to 21 different countries. The results show both the number of unique orders to each country and the total number of products included in those orders. 
+So Mint Classics has sent orders to **21 different countries**. The results show both the number of unique orders to each country and the total number of products included in those orders. 
+
+
+**Wrap-up**: We now have a better picture of both the data and the structure of Mint Classics as a company. From here we dig further into sales and warehouse operations.
+
+---
 
 ## Part 2: Inventory and Sales
 
@@ -348,6 +352,10 @@ This scatter plot isn't perfect, I think it could be made more useful by color-c
 For example, **every product but one that has a unit profit over \\$50 returns over $50,000 in total profit** for the company.
 
 Yet another *ground-breaking discovery* from this analysis: products that are more profitable per unit make more money for the company. Who knew??? Mint Classics might be regretting their decision to hire me as an analyst right now.
+
+**Wrap-up**: We looked at sales from a few different perspectives and identified some areas of opportunity for increasing profit. Next, we'll examine how the different warehouses are performing.
+
+---
 
 
 # Part 3: Examining Warehouse Efficiency
