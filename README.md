@@ -282,7 +282,7 @@ Bottom 10 products by acutal profitability per unit*:
 
 ![Least-Profitable-Products-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/ce68517f-71d2-4386-a04e-2c0a7c6643e2)
 
-*Note*: The Toyota Supra is not included because it did not have any sales.
+**Note*: The Toyota Supra is not included because it did not have any sales.
 
 Here are the results visualized on a scatter plot. We can see a clear trend line, aside from the outlier 1992 Ferrari Spyder.
 
@@ -356,9 +356,38 @@ Quite the doozy! Here is a sample of the results:
 
 This proved to be a very interesting query, as we can see some unsual common product combinations. Also of note was that the most common product combination was not at the same warehouse.
 
-These results are sure to yeild some high-specific recommendations during our analysis.
+These results are sure to yield some high-specific recommendations during our analysis.
 
-### Query 7-9: Warehouse Utilization
+### Query 7: Warehouse Efficiency
+
+The next query uses inventory turnover rate to paint a better picture of which warehouses are being run the most efficiently.
+
+```SQL
+-- Query to analyze warehouse turnover rate --
+SELECT    
+    w.warehouseName,                            -- Selecting the warehouse name
+    SUM(od.quantityOrdered) AS TotalQuantitySold,-- Calculating the total quantity sold
+    w.estimatedMaxCapacity,                      -- Selecting the estimated maximum capacity of the warehouse
+    AVG(p.quantityInStock) AS AverageQuantityInStock, -- Calculating the average quantity in stock
+    (SUM(od.quantityOrdered) / AVG(p.quantityInStock)) AS InventoryTurnoverRate -- Calculating the inventory turnover rate
+FROM
+    warehouses w
+JOIN
+    products p ON w.warehouseCode = p.warehouseCode
+JOIN
+    orderdetails od ON p.productCode = od.productCode
+GROUP BY
+    w.warehouseCode, w.warehouseName            -- Grouping results by warehouse code and name
+ORDER BY
+    InventoryTurnoverRate DESC;                  -- Ordering results by inventory turnover rate
+```
+Here are the results:
+
+(here)
+
+The South warehouse is the most efficient, while the West is the least efficient.
+
+A quick glance at the results shows why. The West warehouse has the second largest maximum capacity, but close to the fewest sales. 
 
 ## Mistake Log
 
