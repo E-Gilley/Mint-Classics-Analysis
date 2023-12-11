@@ -383,7 +383,7 @@ ORDER BY
 ```
 Here are the results:
 
-(here)
+![Warehouse-Efficiency-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/2e1b03d3-9f3c-4df8-922e-8bfa5782af8c)
 
 The South warehouse is the most efficient, while the West is the least efficient.
 
