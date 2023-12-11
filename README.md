@@ -154,6 +154,52 @@ But for now, with our baseline relatively set, we'll move on to looking at sales
 
 Remember, our goal here is to help this company consolidate and potentially downsize its warehouse operations.
 
+### Query 4: Employees and Offices
+
+Now, we'll look further into specific details about the company itself.
+
+```SQL
+-- Query to calculate the total number of employees across all offices --
+SELECT SUM(NumberOfEmployees) AS TotalEmployees -- Selects the sum of all employees from different offices as TotalEmployees
+FROM (
+    SELECT COUNT(employeeNumber) AS NumberOfEmployees -- Counts the number of employees in each office
+    FROM employees
+    GROUP BY officeCode -- Groups the employee count by office
+) AS OfficeEmployees; -- Alias for the subquery used to count employees per office
+```
+
+Results:
+
+Here
+
+I did independent verifications for the distinct count of total employees and offices to make sure nothing was being left out. Everything matched up, so we can clearly see seven independent offices (different from warehouses) with a total of 23 employees.
+
+### Query 5: Orders by Country
+
+MintClassics is a global company. This means getting an idea of what countries we're shipping to and the quantity we're shipping could prove to be useful. 
+
+```SQL
+-- Query to view orders across different countries --
+SELECT 
+    c.country, -- Selecting the country column
+    COUNT(DISTINCT o.orderNumber) AS totalOrders, -- Counting total unique orders per country
+    SUM(od.quantityOrdered) AS totalProductsShipped, -- Summing total products shipped per country
+    ROUND(SUM(od.quantityOrdered) / COUNT(DISTINCT o.orderNumber), 0) AS avgOrderSize -- Calculating and rounding the average order size per country
+FROM 
+    orders o -- Selecting from the orders table
+LEFT JOIN 
+    orderdetails od ON o.orderNumber = od.orderNumber -- Joining orderdetails table using orderNumber
+LEFT JOIN 
+    customers c ON o.customerNumber = c.customerNumber -- Joining customers table using customerNumber
+GROUP BY 
+    c.country -- Grouping the results by country
+```
+
+Here is a sample of the results:
+
+Insert.
+
+So Mint Classics has sent orders to 21 different countries. The results show both the number of unique orders to each country and the total number of products included in those orders. 
 
 ## Part 2: Inventory and Sales
 
@@ -390,6 +436,11 @@ The South warehouse is the most efficient, while the West is the least efficient
 A quick glance at the results shows why. The West warehouse has the second largest maximum capacity, but close to the fewest sales. 
 
 ## Mistake Log
+
+While calculating the orders for each country, I first used the total number of unique orders for each country. This wouldn't have been wrong; however, that wouldn't have painted the most accurate picture. This method would've counted each order the same and not taken the quantity of each order into account.
+
+
+
 
 When calculating profitabilty I initally just tried to use MSRP subtracted by the buy price for each item. This was simple enough and fairly accurate. However, after further exploring the orderdetails table I realized that the MSRP did not accurately reflect what each person paid for an item. The price people paid varied by order. This would have proven to be a mistake that dramatically impacts the result we got. 
 
