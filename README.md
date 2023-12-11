@@ -3,7 +3,7 @@
 ## Table of Contents
 - [Project Objectives](#project-objectives)
 - [Data Description](#data-description)
-- [Part 1: Exploring Current Inventory](#part-1-exploring-current-inventory)
+- [Part 1: Exploring the Data](#part-1-exploring-the-data)
 - [Part 2: Inventory and Sales](#part-2-inventory-and-sales)
 - [Part 3: Examining Warehouse Efficiency](#part-3-examining-warehouse-efficiency)
 - [Mistake Log](#mistake-log)
@@ -76,11 +76,11 @@ The database itself was uploaded from a database script. The code for that is ve
 Let's get started by better acquainting ourselves with the data:
 
 
-## Part 1: Exploring Current Inventory
+## Part 1: Exploring the Data
  
 **Key takeaway**: The data was collected over a 29 month period from 2003 to 2005. The company has four different warehouses with 110 unique products that are spread over 7 different product lines. 
 
-### Query 1-2: Getting a baseline
+### Query 1-2: Date and Products
 
 My first step was to try to get oriented with the data at a high level. First I need to figure out **when the data is from** and how long of a period this data was collected. To do this I looked at the oldest and newest order date.
 
