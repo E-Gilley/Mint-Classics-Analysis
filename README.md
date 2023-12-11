@@ -78,7 +78,11 @@ Let's get started by better acquainting ourselves with the data:
 
 ## Part 1: Exploring the Data
  
-**Key takeaway**: The data was collected over a 29 month period from 2003 to 2005. The company has four different warehouses with 110 unique products that are spread over 7 different product lines. 
+**Key Takeaways**:
+- The data was collected over a 29 month period from 2003 to 2005. 
+- The company has four different warehouses with 110 unique products that are spread over 7 different product lines.
+- There are 7 different offices, housing 23 total employees.
+- The company has shipped to 21 different countries.
 
 ### Query 1-2: Date and Products
 
@@ -177,7 +181,7 @@ Results:
 
 ![Different-Office-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/debbef46-d669-467f-9f63-0275c3fbd550)
 
-I did independent verifications for the distinct count of total employees and offices to make sure nothing was being left out. Everything matched up, so we can clearly see seven independent offices (different from warehouses) with a total of 23 employees.
+I did independent verifications for the distinct count of total employees and offices to make sure nothing was being left out. Everything matched up, so we can clearly see 7 independent offices (different from warehouses) with a total of 23 employees.
 
 ### Query 5: Orders by Country
 
