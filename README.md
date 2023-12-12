@@ -96,13 +96,13 @@ Let's get started acquainting ourselves with the data:
 My first step was to try to get oriented with the data at a high level. First I need to figure out **when the data is from** and how long of a period this data was collected. To do this I looked at the oldest and newest order date.
 
 ```SQL
--- Finding the oldest order date
-SELECT MIN(orderDate) AS OldestOrderDate -- Selecting the minimum order date
-FROM orders; -- From the 'orders' table
+-- Finding the oldest order date --
+SELECT MIN(orderDate) AS OldestOrderDate 		-- Selecting the minimum order date
+FROM orders; 						-- From the 'orders' table
 
 -- Finding the newest order date
-SELECT MAX(orderDate) AS NewestOrderDate -- Selecting the maximum order date
-FROM orders; -- From the 'orders' table
+SELECT MAX(orderDate) AS NewestOrderDate 		-- Selecting the maximum order date
+FROM orders; 						-- From the 'orders' table
 ```
 
 The results showed that the **first order was from January 6, 2003** and the **last order was on May 3, 2005**. My first pice of advice for this company would be to get newer data!
@@ -114,11 +114,11 @@ Next, I wanted to get a better idea of what the company sold, the type of produc
 To do this I ran a query that returned the **total number of products, product lines, and warehouses**.
 
 ```SQL
--- This query finds the total number of unique products, product lines, and warehouses.
+-- This query finds the total number of unique products, product lines, and warehouses. --
 SELECT 
-    COUNT(DISTINCT productCode) AS UniqueProducts, -- Uses the COUNT function to find distinct product codes.
-    COUNT(DISTINCT productLine) AS UniqueProductLines,-- Uses the COUNT function to find distinct product lines.
-    COUNT(DISTINCT warehouseCode) AS TotalWarehouses -- Uses the COUNT function to find distinct warehouse codes.
+    COUNT(DISTINCT productCode) AS UniqueProducts, 		-- Uses the COUNT function to find distinct product codes.
+    COUNT(DISTINCT productLine) AS UniqueProductLines,		-- Uses the COUNT function to find distinct product lines.
+    COUNT(DISTINCT warehouseCode) AS TotalWarehouses 		-- Uses the COUNT function to find distinct warehouse codes.
 FROM products;
 ```
 
@@ -137,6 +137,7 @@ Obviously, I couldn't stop there! The next query drills down on these numbers ev
 In this case, the company is looking to reduce inventory and maybe even close a warehouse. So this query looks at the **number of products at each warehouse**, number of **different product lines** at that warehouse, **total products in stock at each warehouse**, and how full each warehouse is.
 
 ```SQL
+-- This query finds the total number of unique products, product lines, and inventory at each warehouse. --
 SELECT
     w.warehouseName AS WarehouseName,                        -- Selects the name of the warehouse
     COUNT(DISTINCT p.productCode) AS UniqueProducts,         -- Counts the unique products in each warehouse
@@ -146,11 +147,11 @@ SELECT
 FROM
     warehouses w                                            -- Alias 'w' for the warehouses table
 LEFT JOIN
-    products p ON w.warehouseCode = p.warehouseCode          -- Joins products with warehouses on matching warehouseCode
+    products p ON w.warehouseCode = p.warehouseCode         -- Joins products with warehouses on matching warehouseCode
 GROUP BY
     w.warehouseName, w.warehousePctCap                      -- Groups the results by warehouseName and warehousePctCap
 ORDER BY
-	TotalQuantityInStock DESC;								-- Orders the results by TotalQuantity
+	TotalQuantityInStock DESC;			     -- Orders the results by TotalQuantity
 ```
 
 Don't look now, we're over here joining tables and creating aliases!
@@ -168,16 +169,16 @@ Now, we'll look further into specific details about the company itself.
 ```SQL
 -- Query to view employee count across offices --
 SELECT 
-    offices.city, -- Selecting the office city
-    COUNT(employees.employeeNumber) AS NumberOfEmployees -- Counting the number of employees
+    offices.city, 						-- Selecting the office city
+    COUNT(employees.employeeNumber) AS NumberOfEmployees 	-- Counting the number of employees
 FROM 
-    offices -- Selecting from the offices table
+    offices 							-- Selecting from the offices table
 LEFT JOIN 
-    employees ON offices.officeCode = employees.officeCode -- Joining employees based on officeCode
+    employees ON offices.officeCode = employees.officeCode 	-- Joining employees based on officeCode
 GROUP BY 
-    offices.officeCode, offices.city -- Grouping by officeCode and city
+    offices.officeCode, offices.city 				-- Grouping by officeCode and city
 ORDER BY 
-    NumberOfEmployees DESC; -- Ordering the results by NumberOfEmployees in descending order
+    NumberOfEmployees DESC; 					-- Ordering the results by NumberOfEmployees in descending order
 ```
 
 Results:
@@ -193,18 +194,18 @@ MintClassics is a global company. This means getting an idea of what countries w
 ```SQL
 -- Query to view orders across different countries --
 SELECT 
-    c.country, -- Selecting the country column
-    COUNT(DISTINCT o.orderNumber) AS totalOrders, -- Counting total unique orders per country
-    SUM(od.quantityOrdered) AS totalProductsShipped, -- Summing total products shipped per country
+    c.country, 						-- Selecting the country column
+    COUNT(DISTINCT o.orderNumber) AS totalOrders, 	-- Counting total unique orders per country
+    SUM(od.quantityOrdered) AS totalProductsShipped, 	-- Summing total products shipped per country
     ROUND(SUM(od.quantityOrdered) / COUNT(DISTINCT o.orderNumber), 0) AS avgOrderSize -- Calculating and rounding the average order size per country
 FROM 
-    orders o -- Selecting from the orders table
+    orders o 						-- Selecting from the orders table
 LEFT JOIN 
-    orderdetails od ON o.orderNumber = od.orderNumber -- Joining orderdetails table using orderNumber
+    orderdetails od ON o.orderNumber = od.orderNumber 	-- Joining orderdetails table using orderNumber
 LEFT JOIN 
-    customers c ON o.customerNumber = c.customerNumber -- Joining customers table using customerNumber
+    customers c ON o.customerNumber = c.customerNumber 	-- Joining customers table using customerNumber
 GROUP BY 
-    c.country -- Grouping the results by country
+    c.country 						-- Grouping the results by country
 ```
 
 Here is a sample of the results:
@@ -234,19 +235,21 @@ So Mint Classics has sent orders to **21 different countries**. The results show
 Starting things off for this section we'll do some exploration into the most and least popular products. To do this we'll look at total orders across all products.
 
 ```SQL
+-- Query to find most popular products --
 SELECT p.productName, p.productLine, SUM(od.quantityOrdered) AS TotalQuantityOrdered -- Selecting product name, product line, and total quantity ordered
 FROM products p
-LEFT JOIN orderdetails od ON p.productCode = od.productCode -- Joining 'products' and 'orderdetails' tables on product code
-GROUP BY p.productCode, p.productName -- Grouping results by product code and product name
-ORDER BY TotalQuantityOrdered DESC -- Ordering the results by total quantity ordered in descending order
-LIMIT 10; -- Limiting the results to the top 10
+LEFT JOIN orderdetails od ON p.productCode = od.productCode 	-- Joining 'products' and 'orderdetails' tables on product code
+GROUP BY p.productCode, p.productName 				-- Grouping results by product code and product name
+ORDER BY TotalQuantityOrdered DESC 				-- Ordering the results by total quantity ordered in descending order
+LIMIT 10; 							-- Limiting the results to the top 10
 
+-- Query to find least popular products --
 SELECT p.productName, p.productLine, SUM(od.quantityOrdered) AS TotalQuantityOrdered -- Selecting product name, product line, and total quantity ordered
 FROM products p
-LEFT JOIN orderdetails od ON p.productCode = od.productCode -- Joining 'products' and 'orderdetails' tables on product code
-GROUP BY p.productCode, p.productName -- Grouping results by product code and product name
-ORDER BY TotalQuantityOrdered -- Ordering the results by total quantity ordered in ascending order
-LIMIT 10; -- Limiting the results to the bottom 10
+LEFT JOIN orderdetails od ON p.productCode = od.productCode 	-- Joining 'products' and 'orderdetails' tables on product code
+GROUP BY p.productCode, p.productName 				-- Grouping results by product code and product name
+ORDER BY TotalQuantityOrdered 					-- Ordering the results by total quantity ordered in ascending order
+LIMIT 10; 							-- Limiting the results to the bottom 10
 ```
 
 Here are the results:
@@ -267,8 +270,9 @@ Next, let's look at each product line and how popular it is. This will give us a
 Before looking at that, let's first verify our total sum or orders for each product. This way when we'll be able to tell if any products don't have a product line attached to them.
 
 ```SQL
-SELECT SUM(quantityOrdered) AS TotalOrders -- Selecting the total sum of quantity ordered across all products
-FROM orderdetails; -- Retrieving data from the 'orderdetails' table
+-- This query shows the total number of products ordered. --
+SELECT SUM(quantityOrdered) AS TotalOrders 			-- Selecting the total sum of quantity ordered across all products
+FROM orderdetails; 						-- Retrieving data from the 'orderdetails' table
 ```
 
 The results showed we have 105,516 total orders. So when we break sales down across product lines, that should be our total.
@@ -278,14 +282,14 @@ The results showed we have 105,516 total orders. So when we break sales down acr
 Cool. Cool. Cool. Great attention to detail Eric. Way to demonstrate your commitment to data accuracy! 
 
 ```SQL
--- Query to calculate the total orders for each product line
-SELECT pl.productLine, SUM(od.quantityOrdered) AS TotalOrders -- Selecting product line and sum of quantity ordered
-FROM productlines pl -- Referencing the 'productlines' table as 'pl'
-JOIN products p ON pl.productLine = p.productLine -- Joining 'productlines' and 'products' tables on product line
-JOIN orderdetails od ON p.productCode = od.productCode -- Joining 'products' and 'orderdetails' tables on product code
-JOIN orders o ON od.orderNumber = o.orderNumber -- Joining 'orders' and 'orderdetails' tables on order number
-GROUP BY pl.productLine -- Grouping results by product line
-ORDER BY TotalOrders DESC; -- Sorting results by total orders in descending order
+-- Query to calculate the total orders for each product line --
+SELECT pl.productLine, SUM(od.quantityOrdered) AS TotalOrders 	-- Selecting product line and sum of quantity ordered
+FROM productlines pl 						-- Referencing the 'productlines' table as 'pl'
+JOIN products p ON pl.productLine = p.productLine		-- Joining 'productlines' and 'products' tables on product line
+JOIN orderdetails od ON p.productCode = od.productCode 		-- Joining 'products' and 'orderdetails' tables on product code
+JOIN orders o ON od.orderNumber = o.orderNumber 		-- Joining 'orders' and 'orderdetails' tables on order number
+GROUP BY pl.productLine 					-- Grouping results by product line
+ORDER BY TotalOrders DESC; 					-- Sorting results by total orders in descending order
 ```
 
 Here are the results displayed as a pie chart (because I'm not afraid to dip my toe into controversial and divisive data visualization techniques).
