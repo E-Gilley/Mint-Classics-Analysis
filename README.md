@@ -11,7 +11,7 @@
 
 ## Introduction
 
-The Mint Classics Company (MC), a completely made-up retailer specializing in classic model cars and vehicles, faces the challenge of optimizing its inventory across multiple storage facilities. 
+The Mint Classics Company (MC) is a completely made-up company that sells model cars. The company faces the challenge of optimizing its inventory across multiple storage facilities. 
 
 As part of its strategic initiative to enhance operational efficiency, MC aims to explore its current inventory data and derive insights that can guide decisions around inventory reorganization or reduction.
 
@@ -78,7 +78,7 @@ The project utilizes a MySQL database with the following schema:
 
 ![Database](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/10d15756-2c9f-4591-83c7-d31cdd7d77cc)
 
-The database itself was uploaded from a database script. The code for that is very long, and frankly not very important to this analysis. Just know I downloaded the script and imported it into MySQL Workbench to set up this whole database.
+The database itself was uploaded from a database script. The code for that is very long. Just know I downloaded the script and imported it into MySQL Workbench to set up this whole database.
 
 Let's get started acquainting ourselves with the data:
 
@@ -101,7 +101,7 @@ My first step was to try to get oriented with the data at a high level. First I 
 SELECT MIN(orderDate) AS OldestOrderDate 		-- Selecting the minimum order date
 FROM orders; 						-- From the 'orders' table
 
--- Finding the newest order date
+-- Finding the newest order date --
 SELECT MAX(orderDate) AS NewestOrderDate 		-- Selecting the maximum order date
 FROM orders; 						-- From the 'orders' table
 ```
