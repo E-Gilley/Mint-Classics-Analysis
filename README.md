@@ -312,15 +312,16 @@ This query will also take that actual profit per product and multiply it by the 
 To view all of this information, I got a little ambitious and squeezed everything into one query then exported the data to make it easier to analyze. It also has the benefit of creating a file with all the data for a later date. 
 
 ```SQL
+-- Query to calculate the profit per product and total revenue. --
 SELECT 
     p.productName,
     p.productLine,
-    FORMAT(SUM((od.quantityOrdered * p.buyPrice)), 2) AS TotalPaid, -- Total amount paid for products sold
-    FORMAT(SUM(od.quantityOrdered * od.priceEach), 2) AS TotalRevenue, -- Total revenue generated
+    FORMAT(SUM((od.quantityOrdered * p.buyPrice)), 2) AS TotalPaid, 		-- Total amount paid for products sold
+    FORMAT(SUM(od.quantityOrdered * od.priceEach), 2) AS TotalRevenue, 		-- Total revenue generated
     FORMAT(SUM((od.quantityOrdered * od.priceEach) - (od.quantityOrdered * p.buyPrice)), 2) AS TotalProfit, -- Total profit
-    FORMAT(p.MSRP - p.buyPrice, 2) AS ExpectedProfitability, -- Expected profitability
+    FORMAT(p.MSRP - p.buyPrice, 2) AS ExpectedProfitability, 			-- Expected profitability
     FORMAT((SUM(od.quantityOrdered * od.priceEach) / SUM(od.quantityOrdered)) - p.buyPrice, 2) AS ActualProfitability, -- Actual profitability
-    FORMAT(((p.MSRP - p.buyPrice) - ((SUM(od.quantityOrdered * od.priceEach) / SUM(od.quantityOrdered)) - p.buyPrice)) / (p.MSRP - p.buyPrice) * 100, 2) AS DifferenceInProfitability -- Difference in profitability as a percentage
+    FORMAT(((p.MSRP - p.buyPrice) - ((SUM(od.quantityOrdered * od.priceEach) / SUM(od.quantityOrdered)) - p.buyPrice)) / (p.MSRP - p.buyPrice) * 100, 2) AS DifferenceInProfitability 				-- Difference in profitability as a percentage
 FROM 
     products p
 JOIN 
@@ -407,18 +408,18 @@ JOIN
     orderdetails od2 ON od1.orderNumber = od2.orderNumber AND od1.productCode < od2.productCode
     -- Joining order details to itself to find different product pairs in the same order
 JOIN 
-    products p1 ON od1.productCode = p1.productCode -- Joining product details for the first product
+    products p1 ON od1.productCode = p1.productCode 		-- Joining product details for the first product
 JOIN 
-    products p2 ON od2.productCode = p2.productCode -- Joining product details for the second product
+    products p2 ON od2.productCode = p2.productCode 		-- Joining product details for the second product
 JOIN 
-    warehouses w1 ON p1.warehouseCode = w1.warehouseCode -- Joining warehouse details for the first product
+    warehouses w1 ON p1.warehouseCode = w1.warehouseCode 	-- Joining warehouse details for the first product
 JOIN 
-    warehouses w2 ON p2.warehouseCode = w2.warehouseCode -- Joining warehouse details for the second product
+    warehouses w2 ON p2.warehouseCode = w2.warehouseCode 	-- Joining warehouse details for the second product
 GROUP BY 
     p1.productName, w1.warehouseCode, p2.productName, w2.warehouseCode
-    -- Grouping the results by product names and warehouse codes
+ 								-- Grouping the results by product names and warehouse codes
 ORDER BY 
-    CoOccurrenceCount DESC;                -- Ordering the results by co-occurrence count in descending order
+    CoOccurrenceCount DESC;               			 -- Ordering the results by co-occurrence count in descending order
 ```
 
 Quite the doozy! Here is a sample of the results:
