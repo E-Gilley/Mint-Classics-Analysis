@@ -1,5 +1,7 @@
 # Analyzing Inventory Data for Mint Classics Company
 
+![Yellow-Model-Car](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/c0893ddc-6f11-4493-801e-353cf4dc8344)
+
 ## Table of Contents
 - [Project Objectives](#project-objectives)
 - [Data Description](#data-description)
