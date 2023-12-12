@@ -7,6 +7,7 @@
 - [Part 2: Inventory and Sales](#part-2-inventory-and-sales)
 - [Part 3: Examining Warehouse Efficiency](#part-3-examining-warehouse-efficiency)
 - [Mistake Log](#mistake-log)
+- [Just Show Me the Queries](#sql-query-log)
 
 ## Introduction
 
@@ -487,8 +488,199 @@ In fact, it probably would've been interesting to see which items had the bigges
 
 - When calculating the 'Actual Profitability per unit' I needed to get the average price paid for a specific product. My original query just got the average of the column that contained the priced paid information. However, I realized this wouldn't take into account the quantity of an item that was ordered. The average had to be accurately weighted by how much of a product was ordered at a certain pice.
 
-# Queries Used
+# SQL Query Log
 
-If you're just here to make sure I know a thing or two about SQL and not interested in my ramblings, I'm going to just include all of the queries I wrote below in one place. I like your style.
+If you're just here to make sure I know a thing or two about SQL and not interested in my ramblings, I'm going to just include all of the queries I wrote below in one place. I like your style. Anyway, here are all the queries used in this project in order:
+
+```SQL
+-- Finding the oldest order date --
+SELECT MIN(orderDate) AS OldestOrderDate 		-- Selecting the minimum order date
+FROM orders; 						-- From the 'orders' table
+
+-- Finding the newest order date
+SELECT MAX(orderDate) AS NewestOrderDate 		-- Selecting the maximum order date
+FROM orders; 						-- From the 'orders' table
+```
+---
+
+```SQL
+-- This query finds the total number of unique products, product lines, and warehouses. --
+SELECT 
+    COUNT(DISTINCT productCode) AS UniqueProducts, 		-- Uses the COUNT function to find distinct product codes.
+    COUNT(DISTINCT productLine) AS UniqueProductLines,		-- Uses the COUNT function to find distinct product lines.
+    COUNT(DISTINCT warehouseCode) AS TotalWarehouses 		-- Uses the COUNT function to find distinct warehouse codes.
+FROM products;
+```
+---
+
+```SQL
+-- This query finds the total number of unique products, product lines, and inventory at each warehouse. --
+SELECT
+    w.warehouseName AS WarehouseName,                        -- Selects the name of the warehouse
+    COUNT(DISTINCT p.productCode) AS UniqueProducts,         -- Counts the unique products in each warehouse
+    COUNT(DISTINCT p.productLine) AS UniqueProductLines,     -- Counts the unique product lines in each warehouse
+    SUM(p.quantityInStock) AS TotalQuantityInStock,          -- Sums up the total quantity in stock at each warehouse
+    w.warehousePctCap AS WarehouseCapacity                   -- Includes the warehouse percentage capacity
+FROM
+    warehouses w                                            -- Alias 'w' for the warehouses table
+LEFT JOIN
+    products p ON w.warehouseCode = p.warehouseCode         -- Joins products with warehouses on matching warehouseCode
+GROUP BY
+    w.warehouseName, w.warehousePctCap                      -- Groups the results by warehouseName and warehousePctCap
+ORDER BY
+	TotalQuantityInStock DESC;			     -- Orders the results by TotalQuantity
+```
+---
+
+```SQL
+-- Query to view employee count across offices --
+SELECT 
+    offices.city, 						-- Selecting the office city
+    COUNT(employees.employeeNumber) AS NumberOfEmployees 	-- Counting the number of employees
+FROM 
+    offices 							-- Selecting from the offices table
+LEFT JOIN 
+    employees ON offices.officeCode = employees.officeCode 	-- Joining employees based on officeCode
+GROUP BY 
+    offices.officeCode, offices.city 				-- Grouping by officeCode and city
+ORDER BY 
+    NumberOfEmployees DESC; 					-- Ordering the results by NumberOfEmployees in descending order
+```
+---
+
+```SQL
+-- Query to view orders across different countries --
+SELECT 
+    c.country, 						-- Selecting the country column
+    COUNT(DISTINCT o.orderNumber) AS totalOrders, 	-- Counting total unique orders per country
+    SUM(od.quantityOrdered) AS totalProductsShipped, 	-- Summing total products shipped per country
+    ROUND(SUM(od.quantityOrdered) / COUNT(DISTINCT o.orderNumber), 0) AS avgOrderSize -- Calculating and rounding the average order size per country
+FROM 
+    orders o 						-- Selecting from the orders table
+LEFT JOIN 
+    orderdetails od ON o.orderNumber = od.orderNumber 	-- Joining orderdetails table using orderNumber
+LEFT JOIN 
+    customers c ON o.customerNumber = c.customerNumber 	-- Joining customers table using customerNumber
+GROUP BY 
+    c.country 						-- Grouping the results by country
+```
+---
+
+```SQL
+-- Query to find most popular products --
+SELECT p.productName, p.productLine, SUM(od.quantityOrdered) AS TotalQuantityOrdered -- Selecting product name, product line, and total quantity ordered
+FROM products p
+LEFT JOIN orderdetails od ON p.productCode = od.productCode 	-- Joining 'products' and 'orderdetails' tables on product code
+GROUP BY p.productCode, p.productName 				-- Grouping results by product code and product name
+ORDER BY TotalQuantityOrdered DESC 				-- Ordering the results by total quantity ordered in descending order
+LIMIT 10; 							-- Limiting the results to the top 10
+
+-- Query to find least popular products --
+SELECT p.productName, p.productLine, SUM(od.quantityOrdered) AS TotalQuantityOrdered -- Selecting product name, product line, and total quantity ordered
+FROM products p
+LEFT JOIN orderdetails od ON p.productCode = od.productCode 	-- Joining 'products' and 'orderdetails' tables on product code
+GROUP BY p.productCode, p.productName 				-- Grouping results by product code and product name
+ORDER BY TotalQuantityOrdered 					-- Ordering the results by total quantity ordered in ascending order
+LIMIT 10; 							-- Limiting the results to the bottom 10
+```
+---
+
+```SQL
+-- This query shows the total number of products ordered. --
+SELECT SUM(quantityOrdered) AS TotalOrders 			-- Selecting the total sum of quantity ordered across all products
+FROM orderdetails; 						-- Retrieving data from the 'orderdetails' table
+```
+---
+
+```SQL
+-- Query to calculate the total orders for each product line --
+SELECT pl.productLine, SUM(od.quantityOrdered) AS TotalOrders 	-- Selecting product line and sum of quantity ordered
+FROM productlines pl 						-- Referencing the 'productlines' table as 'pl'
+JOIN products p ON pl.productLine = p.productLine		-- Joining 'productlines' and 'products' tables on product line
+JOIN orderdetails od ON p.productCode = od.productCode 		-- Joining 'products' and 'orderdetails' tables on product code
+JOIN orders o ON od.orderNumber = o.orderNumber 		-- Joining 'orders' and 'orderdetails' tables on order number
+GROUP BY pl.productLine 					-- Grouping results by product line
+ORDER BY TotalOrders DESC; 					-- Sorting results by total orders in descending order
+```
+---
+
+```SQL
+-- Query to calculate the profit per product and total revenue. --
+SELECT 
+    p.productName,
+    p.productLine,
+    FORMAT(SUM((od.quantityOrdered * p.buyPrice)), 2) AS TotalPaid, 		-- Total amount paid for products sold
+    FORMAT(SUM(od.quantityOrdered * od.priceEach), 2) AS TotalRevenue, 		-- Total revenue generated
+    FORMAT(SUM((od.quantityOrdered * od.priceEach) - (od.quantityOrdered * p.buyPrice)), 2) AS TotalProfit, -- Total profit
+    FORMAT(p.MSRP - p.buyPrice, 2) AS ExpectedProfitability, 			-- Expected profitability
+    FORMAT((SUM(od.quantityOrdered * od.priceEach) / SUM(od.quantityOrdered)) - p.buyPrice, 2) AS ActualProfitability, -- Actual profitability
+    FORMAT(((p.MSRP - p.buyPrice) - ((SUM(od.quantityOrdered * od.priceEach) / SUM(od.quantityOrdered)) - p.buyPrice)) / (p.MSRP - p.buyPrice) * 100, 2) AS DifferenceInProfitability 				-- Difference in profitability as a percentage
+FROM 
+    products p
+JOIN 
+    orderdetails od ON p.productCode = od.productCode
+GROUP BY 
+    p.productCode, p.productName
+ORDER BY 
+    TotalProfit DESC;
+```
+---
+
+```SQL
+-- Query to find products that are commonly ordered together --
+
+SELECT 
+    p1.productName AS Product1,            -- Selecting the name of the first product
+    w1.warehouseCode AS Warehouse1,       -- Selecting the warehouse code of the first product
+    w1.warehouseName AS Warehouse1Name,   -- Selecting the warehouse name of the first product
+    p2.productName AS Product2,            -- Selecting the name of the second product
+    w2.warehouseCode AS Warehouse2,       -- Selecting the warehouse code of the second product
+    w2.warehouseName AS Warehouse2Name,   -- Selecting the warehouse name of the second product
+    COUNT(*) AS CoOccurrenceCount,        -- Counting the co-occurrences of product pairs
+    CASE 
+        WHEN w1.warehouseCode = w2.warehouseCode THEN 'Yes'  -- Conditional check if the warehouses are the same
+        ELSE 'No'
+    END AS SameWarehouse                  -- Labeling if the warehouses are the same or different
+FROM 
+    orderdetails od1                        -- First set of order details
+JOIN 
+    orderdetails od2 ON od1.orderNumber = od2.orderNumber AND od1.productCode < od2.productCode
+    -- Joining order details to itself to find different product pairs in the same order
+JOIN 
+    products p1 ON od1.productCode = p1.productCode 		-- Joining product details for the first product
+JOIN 
+    products p2 ON od2.productCode = p2.productCode 		-- Joining product details for the second product
+JOIN 
+    warehouses w1 ON p1.warehouseCode = w1.warehouseCode 	-- Joining warehouse details for the first product
+JOIN 
+    warehouses w2 ON p2.warehouseCode = w2.warehouseCode 	-- Joining warehouse details for the second product
+GROUP BY 
+    p1.productName, w1.warehouseCode, p2.productName, w2.warehouseCode
+ 								-- Grouping the results by product names and warehouse codes
+ORDER BY 
+    CoOccurrenceCount DESC;
+
+---
+
+```SQL
+-- Query to analyze warehouse turnover rate --
+SELECT    
+    w.warehouseName,                            -- Selecting the warehouse name
+    SUM(od.quantityOrdered) AS TotalQuantitySold,-- Calculating the total quantity sold
+    w.estimatedMaxCapacity,                      -- Selecting the estimated maximum capacity of the warehouse
+    AVG(p.quantityInStock) AS AverageQuantityInStock, -- Calculating the average quantity in stock
+    (SUM(od.quantityOrdered) / AVG(p.quantityInStock)) AS InventoryTurnoverRate -- Calculating the inventory turnover rate
+FROM
+    warehouses w
+JOIN
+    products p ON w.warehouseCode = p.warehouseCode
+JOIN
+    orderdetails od ON p.productCode = od.productCode
+GROUP BY
+    w.warehouseCode, w.warehouseName            -- Grouping results by warehouse code and name
+ORDER BY
+    InventoryTurnoverRate DESC;                  -- Ordering results by inventory turnover rate
+```
+
 
 
