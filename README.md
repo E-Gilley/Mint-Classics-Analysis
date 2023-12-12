@@ -473,10 +473,20 @@ A glance at the results shows why. The West warehouse has the second largest max
 
 **Recommendation Summary**:
 
-- Stop selling the dang Toyota Supra
-- Try to negotiate a lower buy price for items with high sales and lower profits
-- Move items with over 20 concurrent orders to the same warehouse
-- Should you close a warehouse?!? (cliffhanger)
+- Death to the Toyota Supra
+- Negotiate Lower Buy Prices for High-Volume Low-Profit Items
+- Consolidate High-Demand Items in Single Warehouse Locations
+- Should you Close a Warehouse?!? (cliffhanger)
+
+### Product Sales/Inventory Recommendations 
+
+Recommendation: Discontinue Toyota Supra.
+
+Rationale: The Supra is the only product with zero sales to speak of. This could be an error in the data or there could be a more complicated reason. Assuming the data is correct and there aren't any unknown reasons for the lack of sales, the Supra should be yanked from shelves. Given there is current stock of over 7,000 of these cars the company could include them in each order as a special promotion.
+
+Recommendation: Increase the stock of items with less than 1,000 units in stock and over 950 orders.
+
+Rationale: Items like the 1960 BSA Gold Star only have 15 units in stock and over 1,000 orders. That means the stock for these items is dangerously low. The average number of products sold is just about 950 so having 1,000 of all reasonably popular items will make sure products are available.
 
 # Reflection
 
