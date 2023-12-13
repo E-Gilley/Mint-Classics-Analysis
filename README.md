@@ -22,14 +22,14 @@ This project delves into an exploratory data analysis (EDA) of the MC database, 
 
 By leveraging SQL queries on the provided database schema, this analysis seeks to identify patterns, uncover relationships between inventory and sales figures, and recommend potential actions to streamline inventory while ensuring timely service to customers.
 
-**Key Takeaway:** I'm a real analyst helping a fake business solve a fake problem to demonstrate my data analysis skills to you!
+**Key Takeaway:** I'm a real analyst helping a fake business solve a fake problem to demonstrate my ability to use SQL to you!
 
 ---
 
 ### Project Objectives
 
-1. **Explore the Data**: Demonstrate an understanding of the data we have available and better understand the Mint Classics company.
-2. **Sales Analysis**: Explore product sales. Try to identify any products with high sales and low inventory.
+1. **Explore the Data**: Demonstrate an understanding of the data that is available and better understand the Mint Classics company.
+2. **Sales Analysis**: Explore product sales.
 3. **Warehouse Efficiency Evaluation**: Analyze warehouse capacities and suggest potential consolidation strategies.
 
 Through this exploration, the project aims to offer actionable data-driven recommendations that can assist Mint Classics in making informed decisions to optimize their inventory management practices. Who knows, maybe we'll even close a warehouse or two! No promises though.
@@ -37,6 +37,13 @@ Through this exploration, the project aims to offer actionable data-driven recom
 ---
 
 # Data Description
+
+The data from this project comes from Coursera. 
+
+The following tools were used to assist with this project:
+
+- MySQL Workbench
+- Google Sheets
 
 ## Database Schema
 
@@ -109,9 +116,9 @@ SELECT MAX(orderDate) AS NewestOrderDate 		-- Selecting the maximum order date
 FROM orders; 						-- From the 'orders' table
 ```
 
-The results showed that the **first order was from January 6, 2003** and the **last order was on May 3, 2005**. My first pice of advice for this company would be to get newer data!
+The results showed that the **first order was from January 6, 2003** and the **last order was on May 3, 2005**. My first piece of advice for this company would be to get newer data!
 
-So that gives us a window of roughly **29 months of data**.
+That gives us a window of roughly **29 months of data**.
 
 Next, I wanted to get a better idea of what the company sold, the type of products, and the general warehouse situation.
 
@@ -130,15 +137,14 @@ Here are the results:
 
 ![Query1-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/e9b8a292-4cba-4db8-94b3-6a17c5310454)
 
-
-Ok great, analysis complete! This fake company now has all the information (based on 20-year-old data) they could ever need. And on top of that, I've demonstrated my *elite querying abilities*!
+Ok great, analysis complete! This fake company now has all the information (based on 20-year-old data) they could ever need. And on top of that, I've demonstrated my *elite SQL querying abilities*!
 
 
 ### Query 3: Warehouse Inventory
 
 Obviously, I couldn't stop there! The next query drills down on these numbers even further to paint a better picture of the data. Remaining focused on the business objective helps us decide what type of picture to paint.
 
-In this case, the company is looking to reduce inventory and maybe even close a warehouse. So this query looks at the **number of products at each warehouse**, number of **different product lines** at that warehouse, **total products in stock at each warehouse**, and how full each warehouse is.
+In this case, the company is looking to reduce inventory, and maybe even close a warehouse. So this query looks at the **number of products at each warehouse**, number of **different product lines** at that warehouse, **total products in stock at each warehouse**, and how full each warehouse is.
 
 ```SQL
 -- This query finds the total number of unique products, product lines, and inventory at each warehouse. --
@@ -236,7 +242,7 @@ So Mint Classics has sent orders to **21 different countries**. The results show
 
 ### Query 1-2: Most and Least Popular Products & Product Lines
 
-Starting things off for this section we'll do some exploration into the most and least popular products. To do this we'll look at total orders across all products.
+Starting things off for this section we'll do some exploration into the most and least popular products. To do this we'll look at **total orders across all products**.
 
 ```SQL
 -- Query to find most popular products --
@@ -263,7 +269,7 @@ Here are the results:
 
 To make the results easier to digest, I only included the top-5 most and least popular products in the chart seen above. The **1992 red Ferrari Spider is by far the most popular product**, with almost 40% more orders than the next closest product.
 
-By contrast, the **Toyota Supra is by far the least popular product with zero orders**. Paul Walker must be turning over in his grave. 
+By contrast, the **Toyota Supra appears to be the least popular product with zero orders**. Paul Walker must be turning over in his grave. Of course, this could be an error in the data (we'll have to verify with the company). 
 
 Vintage cars do make up three of the five most popular products though. So let's look at the most popular product lines and see if that holds true for the entire dataset.
 
@@ -271,7 +277,7 @@ Vintage cars do make up three of the five most popular products though. So let's
 
 Next, let's look at each product line and how popular it is. This will give us a better idea of what percentage of sales each product line is responsible for.
 
-Before looking at that, let's first verify our total sum or orders for each product. This way when we'll be able to tell if any products don't have a product line attached to them.
+Before looking at that, let's first verify our total sum or orders for each product. This way we'll be able to tell if any products don't have a product line attached to them.
 
 ```SQL
 -- This query shows the total number of products ordered. --
@@ -302,18 +308,19 @@ Here are the results displayed as a pie chart (because I'm not afraid to dip my 
 
 So looking at the full data set, the **Classic Cars product line proved to be the most popular**. It's clear the bulk of the sales belong to Classic and Vintage cars, the **two car-based lines account for over 50% of overall sales**.
 
-Sales are nice, but profit is even better. Next, we'll look at which products are the most and least profitable for Mint Classics.
-
+Sales revenue is  nice, but profit is even better. Next, we'll look at which products are the most and least profitable for Mint Classics.
 
 ### Query 5: Product Profitability
 
 Sales only tell part of the story. A company's best-selling item could be generating only average returns if it isn't that profitable. To check this out we'll look at MC's most and least profitable items in two ways.
 
-We'll look at **profit per product**. How much does the company buy it for and how much do they sell it for. The results will show the expected profitability and the actual profitability per unit. We wanted to make sure the actual profit per unit reflected the amount Mint Classic actually sold the product for and not just the suggested MSRP. However, the query also includes the *expected profit*, which shows the difference between MSRP and the price Mint Classics paid for the product.
+We'll look at **profit per product**. How much does the company buy it for and how much do they sell it for. The results will show the expected profitability and the actual profitability per unit. 
+
+We wanted to make sure the actual profit per unit reflected the amount Mint Classic actually sold the product for and not just the suggested MSRP. However, the query also includes the *expected profit*, which shows the difference between MSRP and the price Mint Classics paid for the product.
 
 This query will also take that actual profit per product and multiply it by the total number of that product sold. This will reveal the **total profit for each product**.
 
-To view all of this information, I got a little ambitious and squeezed everything into one query then exported the data to make it easier to analyze. It also has the benefit of creating a file with all the data for a later date. 
+To view all of this information, I got a little ambitious and squeezed everything into one query then exported the data to make it easier to analyze later. 
 
 ```SQL
 -- Query to calculate the profit per product and total revenue. --
@@ -350,7 +357,7 @@ Top 10 products by actual profitability per unit:
 
 ![Most-Profitable-Products-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/8b9b78a1-7eee-4d15-aa1c-ba614b610dbb)
 
-Bottom 10 products by acutal profitability per unit*:
+Bottom 10 products by actual profitability per unit*:
 
 ![Least-Profitable-Products-Results](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/ce68517f-71d2-4386-a04e-2c0a7c6643e2)
 
@@ -383,12 +390,12 @@ One of the main objectives of this analysis is to examine Mint Classics' warehou
 
 An interesting way to do that is to find products that are typically ordered together. This can help the company in two ways.
 
-First, if products are frequently ordered together but are housed in different warehouses, these are easy candidates for redistribution.
+First, if **products are frequently ordered together but are housed in different warehouses**, these are easy candidates for redistribution.
 
-Second, if products are frequently ordered together and already in the same warehouse, these are easy candidates for reorganization in the warehouse. I.e. moving the two products closer together to enhance picking efficiency.
+Second, if products are frequently ordered together and already in the same warehouse, these are easy candidates for **reorganization in the warehouse**. I.e. moving the two products closer together to enhance picking efficiency.
 
 
-This is quite a long query, so bear  with me.
+This is quite a long query, so bear with me.
 
 ```SQL
 -- Query to find products that are commonly ordered together --
@@ -429,13 +436,13 @@ Quite the doozy! Here is a sample of the results:
 
 ![Results-Common-Orders-Query](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/58f1aeab-f02b-4b76-9e44-27643c5c7d19)
 
-This proved to be a very interesting query, as we can see some unusual common product combinations. Also of note was that the most common product combination was not at the same warehouse.
+This proved to be a very interesting query, we can see some surprising common product combinations. Also of note was that the most common product combination was not at the same warehouse.
 
 These results are sure to yield some high-specific recommendations during our analysis.
 
 ### Query 2: Warehouse Efficiency
 
-The next query uses inventory turnover rate to paint a better picture of which warehouses are being run the most efficiently.
+The next query uses **inventory turnover rate** to paint a better picture of which warehouses are being run the most efficiently.
 
 ```SQL
 -- Query to analyze warehouse turnover rate --
