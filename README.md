@@ -480,7 +480,7 @@ A glance at the results shows why. The West warehouse has the second largest max
 **Recommendation Summary**:
 
 - Death to the Toyota Supra
-- Negotiate Lower Buy Prices for High-Volume Low-Profit Items
+- Maximize Profit Margin on Popular Products
 - Consolidate High-Demand Items in Single Warehouse Locations
 - Should you Close a Warehouse?!? (cliffhanger)
 
@@ -488,24 +488,25 @@ A glance at the results shows why. The West warehouse has the second largest max
 
 **Recommendation**: Discontinue Toyota Supra.
 
-**Rationale**: The Supra is the only product with zero sales to speak of. This could be an error in the data or there could be a more complicated reason. However, assuming the data is correct and there aren't any unknown reasons for the lack of sales, the Supra should be yanked from shelves. 
+**Rationale**: The Supra is the only product with zero sales to speak of. As previously mentioned, this could be an error in the data or there could be a more complicated reason. 
 
-Given there is a current stock of over 7,000 of these cars the company could include them in each order as a special promotion or something.
+However, assuming the data is correct, the Supra should be yanked from shelves. Sorry Paul.
 
-**Recommendation**: Increase the stock of items with less than 1,000 units in stock and over 950 orders.
+Given there is a current stock of over 7,000 of these cars the company could include them in each order as a special promotion or something. I would hate for all 7,000 of these things to just get thrown in the trash!
 
-**Rationale**: Items like the 1960 BSA Gold Star only have 15 units in stock and over 1,000 orders. That means the stock for these items is dangerously low. The average number of products sold is just about 950 so having 1,000 of all reasonably popular items will make sure products are available.
+**Recommendation**: Audit each product to look for ways to maximize profit per unit. Start with the 10 most popular products.
 
-To make sure all products have enough availability keep the stock over 1,000 for reasonably popular products should be a priority.
+**Rationale**: There was an average difference of 22% in the predicted profit vs the actual profit across all items. Trying to increase the profitability of the most popular products will directly and immediately result in more cash for the company.
 
-**Recommendation**:
+There are several popular products with room to grow the profit margin. For example, the 1937 Lincoln Berline is the second most popular product at the company but in terms of actual profit it is just about average.
 
-
-**Rationale**:
+Look at each product. If there is high demand for that product, the company can raise the price or negotiate a lower buy price from the supplier based on the amount we're ordering.
 
 ### Warehouse Recommendations
 
+**Recommendation**:
 
+**Rationale**:
 
 
 # Reflection
