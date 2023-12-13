@@ -494,13 +494,21 @@ However, assuming the data is correct, the Supra should be yanked from shelves. 
 
 Given there is a current stock of over 7,000 of these cars the company could include them in each order as a special promotion or something. I would hate for all 7,000 of these things to just get thrown in the trash!
 
-**Recommendation**: Audit each product to look for ways to maximize profit per unit. Start with the 10 most popular products.
+**Recommendation**: Audit each product to look for ways to maximize profit per unit. Start with the 18 products identified below.
 
 **Rationale**: There was an average difference of 22% in the predicted profit vs the actual profit across all items. Trying to increase the profitability of the most popular products will directly and immediately result in more cash for the company.
 
-There are several popular products with room to grow the profit margin. For example, the 1937 Lincoln Berline is the second most popular product at the company but in terms of actual profit it is just about average.
+There are several popular products with room to grow the profit margin. For example, the 1937 Lincoln Berline is the second most popular product at the company but in terms of actual profit it is just about average. To better visualize this please use the scatter plot below. Note the highlighted red area. These are products with over 1,000 sales but under $50,000 in profit. These represent the products with the most potential for impact if profit margins are increased.
 
-Look at each product. If there is high demand for that product, the company can raise the price or negotiate a lower buy price from the supplier based on the amount we're ordering.
+Image here.
+
+The results showed that 18 products met this criteria. You will find them listed below:
+
+Results Here
+
+Audit each of these products and see if there is an opportunity to increase profit margins by either raising prices or negotiating a more favorable buy price from the supplier.
+
+Once these products are audited, identify and audit the next product cluster with the greatest potential impact on profit.
 
 ### Warehouse Recommendations
 
