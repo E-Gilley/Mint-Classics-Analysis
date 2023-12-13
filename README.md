@@ -486,7 +486,7 @@ A glance at the results shows why. The West warehouse has the second largest max
 
 ### Product Sales/Inventory Recommendations 
 
-**Recommendation**: Discontinue Toyota Supra.
+**Recommendation**: Discontinue the Toyota Supra.
 
 **Rationale**: The Supra is the only product with zero sales to speak of. As previously mentioned, this could be an error in the data or there could be a more complicated reason. 
 
@@ -500,15 +500,15 @@ Given there is a current stock of over 7,000 of these cars the company could inc
 
 There are several popular products with room to grow the profit margin. For example, the 1937 Lincoln Berline is the second most popular product at the company but in terms of actual profit it is just about average. To better visualize this please use the scatter plot below. Note the highlighted red area. These are products with over 1,000 sales but under $50,000 in profit. These represent the products with the most potential for impact if profit margins are increased.
 
-Image here.
+![Profit-AreaOfOpportunity](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/77121752-0324-4752-8e66-bb56eea3e6fb)
 
 The results showed that 18 products met this criteria. You will find them listed below:
 
-Results Here
+![Products-of-Opportunity](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/13c1b349-fd82-40b6-9ff1-a2917d7209ac)
 
 Audit each of these products and see if there is an opportunity to increase profit margins by either raising prices or negotiating a more favorable buy price from the supplier.
 
-Once these products are audited, identify and audit the next product cluster with the greatest potential impact on profit.
+Once these products are audited, identify and audit the next product cluster with the greatest potential impact on profit (like products with high profits but lower sales).
 
 ### Warehouse Recommendations
 
