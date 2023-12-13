@@ -16,7 +16,7 @@
 
 The Mint Classics Company (MC) is a completely made-up company that sells model cars. The company faces the challenge of optimizing its inventory across multiple storage facilities. 
 
-As part of its strategic initiative to enhance operational efficiency, MC aims to explore its current inventory data and derive insights that can guide decisions around inventory reorganization or reduction.
+As part of its strategic initiative to enhance operational efficiency, MC aims to explore its current inventory data and derive insights that can guide decisions around inventory reorganization or reduction. The company also wants to identify areas of opportunity to boost overall profit.
 
 This project delves into an exploratory data analysis (EDA) of the MC database, examining various facets of inventory management, sales correlations, and warehouse utilization. 
 
@@ -484,19 +484,31 @@ A glance at the results shows why. The West warehouse has the second largest max
 - Consolidate High-Demand Items in Single Warehouse Locations
 - Should you Close a Warehouse?!? (cliffhanger)
 
+---
+
 ### Product Sales/Inventory Recommendations 
 
-**Recommendation**: Discontinue the Toyota Supra.
+**Recommendation**: 
 
-**Rationale**: The Supra is the only product with zero sales to speak of. As previously mentioned, this could be an error in the data or there could be a more complicated reason. 
+Discontinue the Toyota Supra.
+
+**Rationale**: 
+
+The Supra is the only product with zero sales to speak of. As previously mentioned, this could be an error in the data or there could be a more complicated reason. 
 
 However, assuming the data is correct, the Supra should be yanked from shelves. Sorry Paul.
 
 Given there is a current stock of over 7,000 of these cars the company could include them in each order as a special promotion or something. I would hate for all 7,000 of these things to just get thrown in the trash!
 
-**Recommendation**: Audit each product to look for ways to maximize profit per unit. Start with the 18 products identified below.
+---
 
-**Rationale**: There was an average difference of 22% in the predicted profit vs the actual profit across all items. Trying to increase the profitability of the most popular products will directly and immediately result in more cash for the company.
+**Recommendation**: 
+
+Audit each product to look for ways to maximize profit per unit. Start with the 18 products identified below.
+
+**Rationale**: 
+
+There was an average difference of 22% in the predicted profit vs the actual profit across all items. Trying to increase the profitability of the most popular products will directly and immediately result in more cash for the company.
 
 There are several popular products with room to grow the profit margin. For example, the 1937 Lincoln Berline is the second most popular product at the company but in terms of actual profit it is just about average. To better visualize this please use the scatter plot below. Note the highlighted red area. These are products with over 1,000 sales but under $50,000 in profit. These represent the products with the most potential for impact if profit margins are increased.
 
@@ -510,12 +522,33 @@ Audit each of these products and see if there is an opportunity to increase prof
 
 Once these products are audited, identify and audit the next product cluster with the greatest potential impact on profit (like products with high profits but lower sales).
 
+---
+
 ### Warehouse Recommendations
+
+**Recommendation**: 
+
+Store items that have been ordered together more than 20 times at the same warehouse and make sure they are stored close together at the warehouse.
+
+**Rationale**: 
+
+The average number of co-occurrence orders (products being ordered together) is around 13. For products with a high frequency of common orders (happened more than 20 times). Stocking these items at the same warehouse will reduce shipping costs and order time. 
+
+There are 69 examples of items ordered together more than 20 times that are not stored at the same warehouse. A file will sent to Mint Classics containing the exact product combinations and their frequency.
+
+Further analysis will need to be done to determine which of the two products in each combination should be moved. For example, both products can be analyzed to determine which one appears the most frequently among these combinations.
+
+For commonly ordered product combinations that are stored at the same warehouse, it is recommended to store these items close to one another inside the warehouse to enhance picking efficiency. There are 138 instances of this.
+
+---
 
 **Recommendation**:
 
 **Rationale**:
 
+
+
+---
 
 # Reflection
 
@@ -538,6 +571,12 @@ Given the significant number of orders from the United States, a deeper analysis
 - **Market Basket Analysis**: Exploring associations between products frequently purchased together by US customers. This analysis could facilitate bundling strategies, cross-selling opportunities, or inventory stocking optimization.
 
 - **Customer Satisfaction and Feedback Analysis**: Leveraging customer feedback and satisfaction data to identify pain points, enhance service quality, and tailor offerings to meet US customers' evolving needs.
+
+---
+
+The recommendation of consolidating commonly ordered product combinations also has room for much more analysis.
+
+For example, I could further explore which products appear the most frequently among that group. This could prove useful in deciding which products to move.
 
 # Mistake Log
 
