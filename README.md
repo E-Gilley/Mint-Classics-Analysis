@@ -362,9 +362,8 @@ Here are the results visualized on a scatter plot. We can see a clear trend line
 
 This scatter plot isn't perfect, I think it could be made more useful by color-coding each plot to its product line. Still, it does illustrate the correlation between unit profit and total profitability.
 
-For example, **every product but one that has a unit profit over \\$50 returns over $50,000 in total profit** for the company.
+For example, **every product but one that has a unit profit over \$50 returns over $50,000 in total profit** for the company.
 
-Yet another *ground-breaking discovery* from this analysis: products that are more profitable per unit make more money for the company. Who knew??? Mint Classics might be regretting their decision to hire me as an analyst right now.
 
 **Wrap-up**: We looked at sales from a few different perspectives and identified some areas of opportunity for increasing profit. Next, we'll examine how the different warehouses are performing.
 
@@ -380,7 +379,7 @@ Yet another *ground-breaking discovery* from this analysis: products that are mo
 
 ### Query 1: Product Placement Optimization
 
-One of the main objectives of this analysis to examine Mint Classics' warehouses and if they're being properly utilized. 
+One of the main objectives of this analysis is to examine Mint Classics' warehouses and if they're being properly utilized. 
 
 An interesting way to do that is to find products that are typically ordered together. This can help the company in two ways.
 
@@ -480,13 +479,27 @@ A glance at the results shows why. The West warehouse has the second largest max
 
 ### Product Sales/Inventory Recommendations 
 
-Recommendation: Discontinue Toyota Supra.
+**Recommendation**: Discontinue Toyota Supra.
 
-Rationale: The Supra is the only product with zero sales to speak of. This could be an error in the data or there could be a more complicated reason. Assuming the data is correct and there aren't any unknown reasons for the lack of sales, the Supra should be yanked from shelves. Given there is current stock of over 7,000 of these cars the company could include them in each order as a special promotion.
+**Rationale**: The Supra is the only product with zero sales to speak of. This could be an error in the data or there could be a more complicated reason. However, assuming the data is correct and there aren't any unknown reasons for the lack of sales, the Supra should be yanked from shelves. 
 
-Recommendation: Increase the stock of items with less than 1,000 units in stock and over 950 orders.
+Given there is a current stock of over 7,000 of these cars the company could include them in each order as a special promotion or something.
 
-Rationale: Items like the 1960 BSA Gold Star only have 15 units in stock and over 1,000 orders. That means the stock for these items is dangerously low. The average number of products sold is just about 950 so having 1,000 of all reasonably popular items will make sure products are available.
+**Recommendation**: Increase the stock of items with less than 1,000 units in stock and over 950 orders.
+
+**Rationale**: Items like the 1960 BSA Gold Star only have 15 units in stock and over 1,000 orders. That means the stock for these items is dangerously low. The average number of products sold is just about 950 so having 1,000 of all reasonably popular items will make sure products are available.
+
+To make sure all products have enough availability keep the stock over 1,000 for reasonably popular products should be a priority.
+
+**Recommendation**:
+
+
+**Rationale**:
+
+### Warehouse Recommendations
+
+
+
 
 # Reflection
 
