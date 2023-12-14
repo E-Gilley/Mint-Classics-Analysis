@@ -542,10 +542,27 @@ For commonly ordered product combinations that are stored at the same warehouse,
 
 ---
 
-**Recommendation**:
+**Recommendation**: 
+
+Don't close the West warehouse just yet! Study what makes the South warehouse so efficient.
 
 **Rationale**:
 
+The West warehouse is clearly the least efficient. It is under capacity and has the lowest turnover rate. It is second worst in sales, behind only the South warehouse (which has a capacity half as a big as the West warehouse).
+
+If Mint Classics wants to make a quick cost-saving measure and cut a warehouse immediately, it should likely be the West warehouse.
+
+HOWEVAH! If the company has a longer runway, there is an opportunity here!
+
+Mint Classic ships products to six countries in the Asia/Australia region. Sales for this region only account for 16% of overall orders, but if MC plans on expanding sales in the region having a warehouse on the West Coast could prove to be invaluable from a shipping perspective.
+
+The right move might be to study the South warehouse closely. What is this warehouse doing that is causing it to be so efficient? From the limited data available to us, we see it is the only warehouse to carry three different product lines. 
+
+The company could collect warehouse-specific metrics like picking times, employee training, etc. There are likely other qualitative areas to be studied within the warehouse. Find a few key factors and apply these principles to the West warehouse.
+
+In fact, you could make a case that the best route in the long run would be to close the South warehouse and transfer the entire inventory to the West warehouse. There is room for everything at the West warehouse. Keeping a warehouse open on the West Coast will be vital to expanding business in the Asian/Australian market.
+
+The South warehouse isn't an international shipping hub and the remaining three warehouses can easily handle orders for the North American market.
 
 
 ---
@@ -587,7 +604,7 @@ For example, I could further explore which products appear the most frequently a
 In fact, it probably would've been interesting to see which items had the biggest discrepency between projected MSRP and average actual price paid. This could be brought back to the supplier to potentially negociate a lower buy price for Mint Classics.
 
 
-- When calculating the 'Actual Profitability per unit' I needed to get the average price paid for a specific product. My original query just got the average of the column that contained the priced paid information. However, I realized this wouldn't take into account the quantity of an item that was ordered. The average had to be accurately weighted by how much of a product was ordered at a certain pice.
+- When calculating the 'Actual Profitability per unit' I needed to get the average price paid for a specific product. My original query just got the average of the column that contained the priced paid information. However, I realized this wouldn't take into account the quantity of an item that was ordered. The average had to be accurately weighted by how much of a product was ordered at a certain price.
 
 # SQL Query Log
 
