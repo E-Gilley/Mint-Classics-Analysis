@@ -647,12 +647,9 @@ For example, I could further explore which products appear the most frequently a
 
 # Mistake Log
 
-- While calculating the orders for each country, I first used the total number of unique orders for each country. This wouldn't have been wrong; however, that wouldn't have painted the most accurate picture. This method would've counted each order the same and not taken the quantity of each order into account.
+- While calculating the orders for each country, I first used the total number of unique orders for each country. This wouldn't have been wrong; however, it wouldn't have painted the most accurate picture. This method would've counted each order the same and not taken the number of products in each order into account.
 
-- When calculating profitabilty I initally just tried to use MSRP subtracted by the buy price for each item. This was simple enough and fairly accurate. However, after further exploring the orderdetails table I realized that the MSRP did not accurately reflect what each person paid for an item. The price people paid varied by order. This would have proven to be a mistake that dramatically impacts the result we got. 
-
-In fact, it probably would've been interesting to see which items had the biggest discrepency between projected MSRP and average actual price paid. This could be brought back to the supplier to potentially negociate a lower buy price for Mint Classics.
-
+- When calculating profitability I initially just tried to use MSRP subtracted by the buy price for each item. This was simple enough and fairly accurate. However, after further exploring the orderdetails table I realized that the MSRP did not accurately reflect what each person paid for an item. The price people paid varied by order. This would have proven to be a mistake that dramatically impacted the result we got. 
 
 - When calculating the 'Actual Profitability per unit' I needed to get the average price paid for a specific product. My original query just got the average of the column that contained the priced paid information. However, I realized this wouldn't take into account the quantity of an item that was ordered. The average had to be accurately weighted by how much of a product was ordered at a certain price.
 
@@ -662,6 +659,7 @@ If you're just here to make sure I know a thing or two about SQL and not interes
 
 ```SQL
 -- Finding the oldest order date --
+
 SELECT MIN(orderDate) AS OldestOrderDate 		-- Selecting the minimum order date
 FROM orders; 						-- From the 'orders' table
 
@@ -673,6 +671,7 @@ FROM orders; 						-- From the 'orders' table
 
 ```SQL
 -- This query finds the total number of unique products, product lines, and warehouses. --
+
 SELECT 
     COUNT(DISTINCT productCode) AS UniqueProducts, 		-- Uses the COUNT function to find distinct product codes.
     COUNT(DISTINCT productLine) AS UniqueProductLines,		-- Uses the COUNT function to find distinct product lines.
@@ -683,6 +682,7 @@ FROM products;
 
 ```SQL
 -- This query finds the total number of unique products, product lines, and inventory at each warehouse. --
+
 SELECT
     w.warehouseName AS WarehouseName,                        -- Selects the name of the warehouse
     COUNT(DISTINCT p.productCode) AS UniqueProducts,         -- Counts the unique products in each warehouse
@@ -702,6 +702,7 @@ ORDER BY
 
 ```SQL
 -- Query to view employee count across offices --
+
 SELECT 
     offices.city, 						-- Selecting the office city
     COUNT(employees.employeeNumber) AS NumberOfEmployees 	-- Counting the number of employees
@@ -718,6 +719,7 @@ ORDER BY
 
 ```SQL
 -- Query to view orders across different countries --
+
 SELECT 
     c.country, 						-- Selecting the country column
     COUNT(DISTINCT o.orderNumber) AS totalOrders, 	-- Counting total unique orders per country
@@ -736,6 +738,7 @@ GROUP BY
 
 ```SQL
 -- Query to find most popular products --
+
 SELECT p.productName, p.productLine, SUM(od.quantityOrdered) AS TotalQuantityOrdered -- Selecting product name, product line, and total quantity ordered
 FROM products p
 LEFT JOIN orderdetails od ON p.productCode = od.productCode 	-- Joining 'products' and 'orderdetails' tables on product code
@@ -744,6 +747,7 @@ ORDER BY TotalQuantityOrdered DESC 				-- Ordering the results by total quantity
 LIMIT 10; 							-- Limiting the results to the top 10
 
 -- Query to find least popular products --
+
 SELECT p.productName, p.productLine, SUM(od.quantityOrdered) AS TotalQuantityOrdered -- Selecting product name, product line, and total quantity ordered
 FROM products p
 LEFT JOIN orderdetails od ON p.productCode = od.productCode 	-- Joining 'products' and 'orderdetails' tables on product code
@@ -755,6 +759,7 @@ LIMIT 10; 							-- Limiting the results to the bottom 10
 
 ```SQL
 -- This query shows the total number of products ordered. --
+
 SELECT SUM(quantityOrdered) AS TotalOrders 			-- Selecting the total sum of quantity ordered across all products
 FROM orderdetails; 						-- Retrieving data from the 'orderdetails' table
 ```
@@ -762,6 +767,7 @@ FROM orderdetails; 						-- Retrieving data from the 'orderdetails' table
 
 ```SQL
 -- Query to calculate the total orders for each product line --
+
 SELECT pl.productLine, SUM(od.quantityOrdered) AS TotalOrders 	-- Selecting product line and sum of quantity ordered
 FROM productlines pl 						-- Referencing the 'productlines' table as 'pl'
 JOIN products p ON pl.productLine = p.productLine		-- Joining 'productlines' and 'products' tables on product line
@@ -774,6 +780,7 @@ ORDER BY TotalOrders DESC; 					-- Sorting results by total orders in descending
 
 ```SQL
 -- Query to calculate the profit per product and total revenue. --
+
 SELECT 
     p.productName,
     p.productLine,
@@ -832,6 +839,7 @@ ORDER BY
 
 ```SQL
 -- Query to analyze warehouse turnover rate --
+
 SELECT    
     w.warehouseName,                            -- Selecting the warehouse name
     SUM(od.quantityOrdered) AS TotalQuantitySold,-- Calculating the total quantity sold
