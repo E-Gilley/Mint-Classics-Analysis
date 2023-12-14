@@ -1,4 +1,4 @@
-# Analyzing Inventory Data for Mint Classics Company
+# Analyzing Data for the Mint Classics Company
 
 ## Executive Summary
 
