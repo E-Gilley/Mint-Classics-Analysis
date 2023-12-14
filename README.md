@@ -276,11 +276,16 @@ So Mint Classics has sent orders to **21 different countries**. The results show
 
 **Key Takeaways**:
 
-- **Most popular product**: 1992 red Ferrari Spider
-- **Least popular product**: Toyota Supra
-- **Most popular product line**: Classic Cars
-- **Least popular product line**: Trains
+- **Most Popular Product**: 1992 red Ferrari Spider
+  
+- **Least Popular Product**: Toyota Supra
+  
+- **Most Popular Product Line**: Classic Cars
+  
+- **Least Popular Product Line**: Trains
+  
 - **Most Profitable Product**: 1992 red Ferrari Spider
+  
 - **Least Profitable Product**: Toyota Supra
 
 ### Query 1-2: Most and Least Popular Products & Product Lines
@@ -425,7 +430,9 @@ For example, **every product but one that has a unit profit over \$50 returns ov
 **Key Takeaways**:
 
 - There are several areas for product placement optimization.
+  
 - The South warehouse is small but mighty.
+
 
 ### Query 1: Product Placement Optimization
 
@@ -479,7 +486,7 @@ Quite the doozy! Here is a sample of the results:
 
 ![Results-Common-Orders-Query](https://github.com/E-Gilley/MintClassicsAnalysis/assets/150806239/58f1aeab-f02b-4b76-9e44-27643c5c7d19)
 
-This proved to be a very interesting query, we can see some surprising common product combinations. Also of note was that the most common product combination was not at the same warehouse.
+This proved to be a very interesting query, we can see some surprising common product combinations. Also of note was that the most common product combination was not stored at the same warehouse.
 
 These results are sure to yield some high-specific recommendations during our analysis.
 
