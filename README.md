@@ -1,6 +1,6 @@
 # Analyzing Data for the Mint Classics Company
 
-## Executive Summary
+## Executive Summary.
 
 This analysis delves into the operational, sales, and inventory data of Mint Classics, a company specializing in model cars. The primary goal was to optimize product sales, inventory management, and warehouse efficiency to maximize profitability and operational effectiveness.
 
